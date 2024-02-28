@@ -1,7 +1,29 @@
 import React from 'react';
 import './TopNav.scss';
+import axios from 'axios';
 
-const TopNav = () => {
+const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
+  const handleKeyDown = async (event) => {
+    if (event.keyCode === 13) {
+      setSearch(search);
+      console.log(search);
+      setLoader(true);
+      // Call your search function here
+      if (search.length > 0) {
+        const res = await axios.get(
+          `https://scrapy-api-qbtq.onrender.com/market/${search}`
+        );
+        setProducts(res.data);
+      } else {
+        const res = await axios.get(
+          `https://scrapy-api-qbtq.onrender.com/market/.*`
+        );
+        setProducts(res.data);
+      }
+      setLoader(false);
+    }
+  };
+
   return (
     <div className='dash-top-nav'>
       <div className='dash-top-left'>
@@ -18,8 +40,13 @@ const TopNav = () => {
             />
           </svg>
           <input
-          placeholder='Enter your item'
-          type='text' className='search' />
+            placeholder='Enter your item'
+            type='text'
+            className='search'
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            onKeyDown={handleKeyDown}
+          />
         </div>
       </div>
       <div className='dash-top-right'>

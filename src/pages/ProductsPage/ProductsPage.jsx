@@ -3,22 +3,45 @@ import './ProductPage.scss';
 import TopNav from '../../components/Dashboard-component/TopNav/TopNav';
 import Card from '../../components/Card/Card';
 import axios from 'axios';
+import { Triangle } from 'react-loader-spinner';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState(null);
+  const [loader, setLoader] = useState(false);
+  const[search,setSearch]=useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
-        'https://scrapy-api-qbtq.onrender.com/market/products'
+        'https://scrapy-api-qbtq.onrender.com/market/.*'
       );
       setProducts(res.data);
     };
     fetchData();
   }, []);
+
   return (
     <div className='products-page'>
-      <TopNav />
+      <TopNav search={search} setSearch={setSearch} setLoader={setLoader} setProducts={setProducts} products={products} />
       <div className='product-cards'>
+      {loader && (
+        <div className='lod-contain'>
+          <Triangle
+            visible={true}
+            height='80'
+            width='80'
+            color='#131736'
+            ariaLabel='triangle-loading'
+            wrapperStyle={{}}
+            wrapperClass=''
+          />
+        </div>
+      )}
+      {
+        (products?.length==0)&&(
+          <p>No result is found !</p>
+        )
+      }
         {products?.map((item) => (
           <Card item={item} />
         ))}
