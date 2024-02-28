@@ -7,6 +7,7 @@ const ImageUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(null);
+  const [uploadDetail,setUploadDetail]=useState(null);
 
   const onDrop = (acceptedFiles) => {
     setSelectedFile(acceptedFiles[0]);
@@ -26,12 +27,18 @@ const ImageUpload = () => {
     try {
       const formData = new FormData();
       formData.append('image', selectedFile);
+      console.log(selectedFile);
 
-      const response = await axios.post('/api/upload', formData, {
+      const response = await axios.post('https://scrapy-api-qbtq.onrender.com/scrapifty/upload-img', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          
         },
       });
+      console.log(response.data.imgid);
+
+      //getting data
+      const imgDetail = await axios.get(`https://scrapy-api-qbtq.onrender.com/scrapify/${response.data.imgid}`);
+      console.log(imgDetail);
 
       setUploadStatus('Image uploaded successfully!');
       console.log(response.data); // Response data from the backend
