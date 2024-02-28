@@ -147,78 +147,33 @@
 /*sell tabs*/
 .tab-container {
   width: 100%;
-  margin-top: -20px;
+  height: 60px;
+  margin-top: -40px;
   display: flex;
   gap: 20px;
   padding: 20px 40px;
+  margin-bottom: 40px;
+}
 
-  .tabs-selector {
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: #fff;
-    box-shadow: 0px -5px 40px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 14px;
-    padding: 16px;
-    gap: 14px;
-  }
+.tab-selctor{
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--txt);
+  font-weight: 500;
+  transition: all .4s ease-in-out;
+  cursor: pointer;
+}
 
-  .tabs {
-    width: 100%;
-    height: 50px;
-    border-radius: 10px;
-    color: #272727;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ededed;
-  }
-
-  .tab-select{
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-  }
-
-  .tab-active {
-    background-color: #272727;
-    color: #ffff;
-  }
-
-  .tab-expander {
-    width: 100%;
-    height: 220px;
-    background: #fff;
-    box-shadow: 0px -5px 40px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 14px;
-    display: flex;
-    gap: 16px;
-    padding: 16px;
-  }
-
-  .tab-expander-left {
-    width: 100%;
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .tab-input {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 17px;
-    border: solid 2px #2727271b;
-  }
-
-  .tab-btn {
-    width: 200px;
-    background-color: #272727;
-    color: #ffff;
-    cursor: pointer;
-  }
+.tab-selctor:hover{
+  transition: all .4s ease-in-out;
+  background-color: #0c0c0c;
+  color: #fff;
+  scale: 0.98;
 }
 
 // creative-box
@@ -245,6 +200,11 @@
   font-size: 20px;
   background: linear-gradient(135deg, #868CFF 0%, #5B93FF 100%);
   cursor: pointer;
+}
+
+.creative-left:hover{
+  transition: all .4s ease-in-out;
+  scale: 0.99;
 }
 
 .creative-right{
