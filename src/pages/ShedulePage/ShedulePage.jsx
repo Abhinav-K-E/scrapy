@@ -3,7 +3,9 @@ import './ShedulePAge.scss'
 
 const ShedulePage = () => {
   return (
-    <div>ShedulePage</div>
+    <div className='schedule-page'>
+      
+    </div>
   )
 }
 
