@@ -14,11 +14,12 @@
     background-color: #fff;
     border-radius: 30px;
     padding: 5px;
+    height: 60px;
 }
 
 .profile-pic{
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: var(--primary);
 }
@@ -26,4 +27,26 @@
 .profile-name{
     font-size: 14px;
     margin-right: 5px;
+}
+
+// search-ui
+.search-bar{
+    width: 600px;
+    height: 60px;
+    display: flex;
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 30px;
+    align-items: center;
+    gap: 10px;
+}
+
+.search{
+    outline: none;
+    border: none;
+}
+
+.search::placeholder{
+    font-weight: 300;
+    color: var(--fade);
 }
