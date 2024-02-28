@@ -1,0 +1,60 @@
+.scrapify-page {
+  width: 100%;
+  height: 100vh;
+}
+
+// grid
+.upload-grid{
+
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    padding: 40px;
+}
+
+.left-grid{
+    width: 100%;
+    height: 100%;
+}
+
+
+.upload-sec {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.upload-txt {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  border-radius: 16px;
+  border: 1.5px dashed #000;
+  background: #fff;
+  box-shadow: 0px 14px 54px 0px rgba(0, 0, 0, 0.03);
+}
+
+.img-preview{
+    width: 100%;
+    height: 100%;
+}
+
+.upload-btn {
+  width: 100%;
+  height: 60px;
+  border-radius: 10px;
+  background: #231f20;
+  box-shadow: 0px 14px 54px 0px rgba(0, 0, 0, 0.03);
+  border: none;
+  color: #fff;
+  font-size: 17px;
+}
+
