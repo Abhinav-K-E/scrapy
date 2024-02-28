@@ -1,0 +1,21 @@
+.dashboard{
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    background-color: var(--primary);
+}
+
+.left-flex{
+    width: 260px;
+    height: 100%;
+    background-color: #fff;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.right-flex{
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary);
+}
