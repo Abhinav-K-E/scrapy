@@ -174,6 +174,36 @@ const ImageUpload = () => {
           </div>
         </div>
       </div>
+
+      {/* new  */}
+      <div className='tab-container'>
+        <div className='tabs-selector'>
+          <div className='tab-select tab-active'>Sell</div>
+          <div className='tab-select'>Donate</div>
+          <div className='tab-select'>Trash</div>
+        </div>
+        <div className='tab-expander'>
+          <div className='tab-expander-left'>
+            <input
+              type='text'
+              placeholder='Title'
+              className='tab-titlte tab-input'
+            />
+            <input
+              type='text'
+              placeholder='Price'
+              className='tab-price tab-input'
+            />
+          </div>
+          <div className='tab-expander-right'>
+            <input
+              type='submit'
+              placeholder='Description'
+              className='tab-btn tab-input'
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
