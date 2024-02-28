@@ -1,15 +1,17 @@
 import React from 'react';
 import './Card.scss'
 
-const Card = () => {
+const Card = ({item}) => {
+  console.log(item.imgid)
   return (
     <div className='product-card'>
       <div
         className='product-top'
         style={{
-          background: `url(https://picsum.photos/200)`,
+          background: `url(https://scrapy-api-qbtq.onrender.com/image/${item?.imgid})`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
+          backgroundRepeat:'no-repeat'
         }}
       >
         <div className='location-icon'>
@@ -28,15 +30,15 @@ const Card = () => {
               fill=''
             />
           </svg>
-          kannur
+          {item?.location}
         </div>
       </div>
       <div className='product-bottom'>
-        <div className='p-top'>Product</div>
+        <div className='p-top'>{item?.title}</div>
         <div className='p-bottom'>
           <div className='p-price'>
             <div className='rupee'>₹</div>
-            40
+            {item?.price}
           </div>
           <div className='buy-btn'>Buy Now</div>
         </div>
