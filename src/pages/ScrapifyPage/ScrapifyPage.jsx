@@ -174,6 +174,15 @@ const ImageUpload = () => {
           </div>
         </div>
       </div>
+      {/* make it creative */}
+      <div className="creative-box">
+        <div className="creative-left">
+              Make it creative
+        </div>
+        <div className="creative-right">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum, quo repellat. Expedita quisquam aspernatur ab voluptas quis at perferendis minus?
+        </div>
+      </div>
 
       {/* new  */}
       <div className='tab-container'>

@@ -153,7 +153,7 @@
   padding: 20px 40px;
 
   .tabs-selector {
-    width: 200px;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -176,6 +176,7 @@
   }
 
   .tab-select{
+    width: 100%;
     padding: 10px;
     border-radius: 10px;
   }
@@ -220,6 +221,42 @@
   }
 }
 
+// creative-box
+.creative-box{
+  width: 100%;
+  display: flex;
+  background-color: transparent;
+  height: 200px;
+  padding: 0px 40px;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.creative-left{
+  min-width: 200px;
+  height: 100%;
+  border: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 400;
+  font-size: 20px;
+  background: linear-gradient(135deg, #868CFF 0%, #5B93FF 100%);
+}
+
+.creative-right{
+  font-size: 15px;
+  height: 100%;
+  font-weight: 400;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: hidden;
+  overflow-y: auto;
+  line-height: 1.5rem;
+}
 //responsive
 @media (max-width: 800px) {
   .upload-txt {
