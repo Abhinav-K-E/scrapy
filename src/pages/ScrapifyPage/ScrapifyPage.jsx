@@ -6,8 +6,8 @@ import './ScrapifyPage.scss';
 const ImageUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [uploadStatus, setUploadStatus] = useState(null);
-  const [uploadDetail,setUploadDetail]=useState(null);
+  const [uploadStatus, setUploadStatus] = useState(false);
+  const [uploadDetail, setUploadDetail] = useState(null);
 
   const onDrop = (acceptedFiles) => {
     setSelectedFile(acceptedFiles[0]);
@@ -29,22 +29,26 @@ const ImageUpload = () => {
       formData.append('image', selectedFile);
       console.log(selectedFile);
 
-      const response = await axios.post('https://scrapy-api-qbtq.onrender.com/scrapifty/upload-img', formData, {
-        headers: {
-          
-        },
-      });
+      const response = await axios.post(
+        'https://scrapy-api-qbtq.onrender.com/scrapifty/upload-img',
+        formData,
+        {
+          headers: {},
+        }
+      );
       console.log(response.data.imgid);
 
       //getting data
-      const imgDetail = await axios.get(`https://scrapy-api-qbtq.onrender.com/scrapify/${response.data.imgid}`);
+      const imgDetail = await axios.get(
+        `https://scrapy-api-qbtq.onrender.com/scrapify/${response.data.imgid}`
+      );
       console.log(imgDetail);
 
-      setUploadStatus('Image uploaded successfully!');
+      setUploadStatus(true);
       console.log(response.data); // Response data from the backend
     } catch (error) {
       console.error(error);
-      setUploadStatus('Upload failed!');
+      setUploadStatus(false);
     }
   };
 
@@ -95,11 +99,12 @@ const ImageUpload = () => {
                 Drag & Drop
               </div>
             )}
-            {uploadStatus && <p>{uploadStatus}</p>}
+          </div>
+          {uploadStatus == false && (
             <button className='upload-btn' onClick={handleSubmit}>
               Upload Image
             </button>
-          </div>
+          )}
         </div>
         <div className='right-grid'>
           <div className='u-img-name'>Product name</div>
@@ -182,12 +187,12 @@ const ImageUpload = () => {
         </div>
       </div>
       {/* make it creative */}
-      <div className="creative-box">
-        <div className="creative-left">
-              Make it creative
-        </div>
-        <div className="creative-right">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum, quo repellat. Expedita quisquam aspernatur ab voluptas quis at perferendis minus?
+      <div className='creative-box'>
+        <div className='creative-left'>Make it creative</div>
+        <div className='creative-right'>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum, quo
+          repellat. Expedita quisquam aspernatur ab voluptas quis at perferendis
+          minus?
         </div>
       </div>
 
