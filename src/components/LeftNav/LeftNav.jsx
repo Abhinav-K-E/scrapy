@@ -1,6 +1,6 @@
 import React from 'react';
 import './LeftNav.scss';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const LeftNav = () => {
   return (
@@ -107,7 +107,7 @@ const LeftNav = () => {
         </ul>
       </div>
 
-      <div className='log-out'>
+      <Link to='/' className='log-out'>
         <svg
           width={21}
           height={22}
@@ -128,7 +128,7 @@ const LeftNav = () => {
           />
         </svg>
         Logout
-      </div>
+      </Link>
     </div>
   );
 };
