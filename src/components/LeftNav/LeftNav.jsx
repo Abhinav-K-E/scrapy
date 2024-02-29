@@ -6,7 +6,7 @@ const LeftNav = () => {
   return (
     <div className='left-nav'>
       <div className='left-nav-grp'>
-        <div className='logo'>Scrapy</div>
+        <Link to='/dashboard/products' className='logo'>Scrapy</Link>
         <ul className='nav-items'>
           <li>
             <NavLink to='/dashboard/products'  className='nav-item'>
