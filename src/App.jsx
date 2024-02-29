@@ -11,9 +11,9 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import ProductPage from './pages/ProductsPage/ProductsPage';
 import ScrapifyPage from './pages/ScrapifyPage/ScrapifyPage';
 import ShedulePage from './pages/ShedulePage/ShedulePage';
-import DatabasePage from './pages/DatabasePage/DatabasePage'
+import DatabasePage from './pages/DatabasePage/DatabasePage';
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
- 
+
 const App = () => {
   return (
     <AuthProvider>
@@ -23,9 +23,12 @@ const App = () => {
           <Route path='/dashboard' element={<Dashboard />}>
             <Route path='/dashboard/products' element={<ProductPage />} />
             <Route path='/dashboard/scrapify' element={<ScrapifyPage />} />
-            <Route path='/dashboard/database' element={<DatabasePage/>}/>
-            <Route path='/dashboard/shedule' element={<ShedulePage/>}/>
-            <Route path='/dashboard/products/:id' element={<ProductDetailPage/>}/>
+            <Route path='/dashboard/database' element={<DatabasePage />} />
+            <Route path='/dashboard/shedule' element={<ShedulePage />} />
+            <Route
+              path='/dashboard/products/:id'
+              element={<ProductDetailPage />}
+            />
           </Route>
         </Routes>
       </div>

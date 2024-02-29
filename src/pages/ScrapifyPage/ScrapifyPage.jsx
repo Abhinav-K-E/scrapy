@@ -4,6 +4,9 @@ import { useDropzone } from 'react-dropzone';
 import './ScrapifyPage.scss';
 import Loader from '../../components/Loader/Loader';
 import fetchAxios from '../../fetchAxios/fetchAxios';
+import { useNavigate } from 'react-router-dom';
+
+import toast, { Toaster } from 'react-hot-toast';
 
 const ImageUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -12,8 +15,10 @@ const ImageUpload = () => {
   const [uploadDetail, setUploadDetail] = useState(null);
   const [attributes, setAttributes] = useState(null);
   const [loader, setLoader] = useState(false);
-  const[imgId,setImgId]=useState(null);
-  const[creativeData,setCreativeData]=useState(null);
+  const [imgId, setImgId] = useState(null);
+  const [creativeData, setCreativeData] = useState(null);
+
+  const navigate = useNavigate();
 
   const onDrop = (acceptedFiles) => {
     setSelectedFile(acceptedFiles[0]);
@@ -65,9 +70,7 @@ const ImageUpload = () => {
 
   const handleCreative = async () => {
     //getting data
-    const res = await fetchAxios.get(
-      `/scrapify/creative/${imgId}`
-    );
+    const res = await fetchAxios.get(`/scrapify/creative/${imgId}`);
     setCreativeData(res.data);
     console.log(res);
   };
@@ -75,21 +78,37 @@ const ImageUpload = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   //sell
-  const handleSell = async()=>{
-    try{
+  const handleSell = async () => {
+    try {
       await fetchAxios.get(`/scrapify/sell/${imgId}`);
-      console.log('----------')
-    }catch(err){
+      toast.success('Successfully uploaded!');
+      setTimeout(()=>{
+        window.location.reload();
+      }, 1000);
+       
+      
+    } catch (err) {
       console.error(err);
+      toast.error('Uploading Failed!');
+      setTimeout(()=>{
+        window.location.reload();
+      }, 1000);
     }
-   
-  }
+  };
+
+  const handlePopUp = () => {
+    toast.success('Successfully uploaded!');
+    setTimeout(()=>{
+      window.location.reload();
+    }, 1000);
+  };
 
   return loader ? (
     <Loader />
   ) : (
     <div className='scrapify-page'>
-      <div className='upload-grid'>
+      <Toaster position='top-center' />
+      <div className='upload-grid' >
         <div className='left-grid'>
           <div {...getRootProps()} className='upload-sec'>
             <input {...getInputProps()} />
@@ -99,16 +118,6 @@ const ImageUpload = () => {
                 src={previewUrl}
                 alt='Selected image preview'
               />
-              // <div
-              // style={{
-              //   background:`url(${previewUrl})`,
-              //   backgroundPosition:'center',
-              //   backgroundSize:'cover',
-              //   backgroundRepeat:'no-repeat'
-              // }}
-              // className="img-preview">
-
-              // </div>
             ) : (
               <div className='upload-txt'>
                 <svg
@@ -231,9 +240,7 @@ const ImageUpload = () => {
           <div onClick={handleCreative} className='creative-left'>
             Make it creative
           </div>
-          <div className='creative-right'>
-            {creativeData}
-          </div>
+          <div className='creative-right'>{creativeData}</div>
         </div>
       )}
       {/* make it creative */}
@@ -241,9 +248,15 @@ const ImageUpload = () => {
       {/* new  */}
       {uploadDetail != null && (
         <div className='tab-container'>
-          <div className='tab-selctor' onClick={handleSell} >Sell now</div>
-          <div className='tab-selctor'>Donate</div>
-          <div className='tab-selctor'>Trash</div>
+          <div className='tab-selctor' onClick={handleSell}>
+            Sell now
+          </div>
+          <div className='tab-selctor' onClick={handlePopUp}>
+            Donate
+          </div>
+          <div className='tab-selctor' onClick={handlePopUp}>
+            Trash
+          </div>
         </div>
       )}
     </div>
