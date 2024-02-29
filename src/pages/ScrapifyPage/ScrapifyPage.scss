@@ -48,7 +48,10 @@
 
 .img-preview {
   width: 100%;
+  min-height: 300px;
   height: 100%;
+  background-position: center;
+  background-size: cover;
 }
 
 .upload-btn {
@@ -94,8 +97,10 @@
 
 .attributes {
   display: flex;
+  overflow: hidden;
+  overflow-x: auto;
   gap: 12px;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
 }
 
 .attribute {
@@ -235,7 +240,7 @@
     flex-direction: column;
     overflow: scroll;
   }
-  .left-grid {
-    margin-bottom: 20px;
+  .right-grid{
+    margin-top: -200px;
   }
 }

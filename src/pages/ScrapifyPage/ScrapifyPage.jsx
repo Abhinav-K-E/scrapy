@@ -68,6 +68,7 @@ const ImageUpload = () => {
       `https://scrapy-api-qbtq.onrender.com/scrapify/creative/${imgId}`
     );
     setCreativeData(res.data);
+    console.log(res);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
@@ -86,6 +87,16 @@ const ImageUpload = () => {
                 src={previewUrl}
                 alt='Selected image preview'
               />
+              // <div
+              // style={{
+              //   background:`url(${previewUrl})`,
+              //   backgroundPosition:'center',
+              //   backgroundSize:'cover',
+              //   backgroundRepeat:'no-repeat'
+              // }}
+              // className="img-preview">
+
+              // </div>
             ) : (
               <div className='upload-txt'>
                 <svg
