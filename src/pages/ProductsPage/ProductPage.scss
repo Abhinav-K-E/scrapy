@@ -17,4 +17,46 @@
     gap: 20px;
 }
 
+// banner
+
+.banner-container{
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.banner{
+    width: 100%;
+    max-width: 800px;
+    background-color: #55C960;
+    border-radius: 20px;
+    background-image: url('../../assets/bg.svg');
+    position: relative;
+    padding: 30px;
+}
+
+.scrap-img{
+    position: absolute;
+    width: 260px;
+    right: 40px;
+    top: -40px;
+}
+
+.banner-txt{
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.banner-btn{
+    width: 120px;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-top: 10px;
+}
 

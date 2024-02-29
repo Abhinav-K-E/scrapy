@@ -6,17 +6,16 @@ import axios from 'axios';
 import { Triangle } from 'react-loader-spinner';
 import fetchAxios from '../../fetchAxios/fetchAxios';
 
+import SCRAP from '../../assets/scrap.svg'
+
 const ProductsPage = () => {
   const [products, setProducts] = useState(null);
   const [loader, setLoader] = useState(false);
-  const[search,setSearch]=useState('');
-  
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetchAxios.get(
-        '/market/.*'
-      );
+      const res = await fetchAxios.get('/market/.*');
       setProducts(res.data);
     };
     fetchData();
@@ -24,27 +23,46 @@ const ProductsPage = () => {
 
   return (
     <div className='products-page'>
-      <TopNav search={search} setSearch={setSearch} setLoader={setLoader} setProducts={setProducts} products={products} />
-      <div className='product-cards'>
-      {loader && (
-        <div className='lod-contain'>
-          <Triangle
-            visible={true}
-            height='80'
-            width='80'
-            color='#131736'
-            ariaLabel='triangle-loading'
-            wrapperStyle={{}}
-            wrapperClass=''
-          />
+      <TopNav
+        search={search}
+        setSearch={setSearch}
+        setLoader={setLoader}
+        setProducts={setProducts}
+        products={products}
+      />
+      
+      <div className='banner-container'>
+        <div className='banner'>
+          <div className="banner-left">
+            <div className="banner-txt">
+            Turn your trash into <br></br> treasure with Scrapify!
+            </div>
+            <div className="banner-btn">
+              Scrapify
+            </div>
+          </div>
+          <div className="banner-right">
+            <img className='scrap-img' src={SCRAP} alt="" />
+          </div>
         </div>
-      )}
-      {
-        (products?.length==0)&&(
-          <p>No result is found !</p>
-        )
-      }
-        {products?.map((item,index) => (
+      </div>
+
+      <div className='product-cards'>
+        {loader && (
+          <div className='lod-contain'>
+            <Triangle
+              visible={true}
+              height='80'
+              width='80'
+              color='#131736'
+              ariaLabel='triangle-loading'
+              wrapperStyle={{}}
+              wrapperClass=''
+            />
+          </div>
+        )}
+        {products?.length == 0 && <p>No result is found !</p>}
+        {products?.map((item, index) => (
           <Card key={index} item={item} />
         ))}
       </div>
