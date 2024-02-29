@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ProductDetailPage.scss';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import fetchAxios from '../../fetchAxios/fetchAxios';
 
 const ProductDetailPage = () => {
@@ -14,34 +13,33 @@ const ProductDetailPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       //getting data
-      const res = await fetchAxios.get(
-        `/scraps/${params.id}`
-      );
+      const res = await fetchAxios.get(`/scraps/${params.id}`);
       setProductDetail(res.data[0]);
-      setAttributes(res.data[0].attributes)
-      console.log(res.data)
+      setAttributes(res.data[0].attributes);
+      console.log(res.data);
     };
     fetchData();
   }, []);
   return (
     <div className='product-detail-page'>
       <div className='product-detail-grid'>
-        <div
-          style={{
-            background: `url(https://scrapy-api-7wnj.onrender.com/image/${params?.id})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-          }}
-          className='product-left-grid'
-        ></div>
+        <div className='product-left-grid'>
+          <img
+            src={`https://scrapy-api-7wnj.onrender.com/image/${params?.id}`}
+            alt='img'
+            className=''
+          />
+        </div>
+
         <div className='product-right-grid'>
           <div className='u-img-name'>{ProductDetail?.title}</div>
           <div className='u-img-desc'>{ProductDetail?.desc}</div>
           <div className='u-img-head'>Attributes</div>
           <div className='attributes'>
-            {attributes?.map((item,index) => (
-              <div key={index} className='attribute'>{item}</div>
+            {attributes?.map((item, index) => (
+              <div key={index} className='attribute'>
+                {item}
+              </div>
             ))}
           </div>
           <div className='u-img-head'>Analytics</div>
