@@ -31,7 +31,7 @@ const Card = ({item}) => {
               fill=''
             />
           </svg>
-          {item?.location}
+          {item?.loc}
         </div>
       </div>
       <div className='product-bottom'>
