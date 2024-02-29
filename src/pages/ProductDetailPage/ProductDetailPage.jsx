@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ProductDetailPage.scss';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import fetchAxios from '../../fetchAxios/fetchAxios';
 
 const ProductDetailPage = () => {
   const params = useParams();
@@ -13,8 +14,8 @@ const ProductDetailPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       //getting data
-      const res = await axios.get(
-        `https://scrapy-api-qbtq.onrender.com/scraps/${params.id}`
+      const res = await fetchAxios.get(
+        `/scraps/${params.id}`
       );
       setProductDetail(res.data[0]);
       setAttributes(res.data[0].attributes)
@@ -27,7 +28,7 @@ const ProductDetailPage = () => {
       <div className='product-detail-grid'>
         <div
           style={{
-            background: `url(https://scrapy-api-qbtq.onrender.com/image/${params?.id})`,
+            background: `url(https://scrapy-api-7wnj.onrender.com/image/${params?.id})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',

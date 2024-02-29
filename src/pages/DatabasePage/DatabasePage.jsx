@@ -3,6 +3,7 @@ import './DatabasePage.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Triangle } from 'react-loader-spinner';
+import fetchAxios from '../../fetchAxios/fetchAxios';
 
 const DatabasePage = () => {
   const [products, setProducts] = useState(null);
@@ -11,8 +12,8 @@ const DatabasePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(
-        'https://scrapy-api-qbtq.onrender.com/scraps/.*'
+      const res = await fetchAxios.get(
+        '/scraps/.*'
       );
       setProducts(res.data);
     };
@@ -26,13 +27,13 @@ const DatabasePage = () => {
       setLoader(true);
       // Call your search function here
       if(search.length>0){
-        const res = await axios.get(
-          `https://scrapy-api-qbtq.onrender.com/scraps/${search}`
+        const res = await fetchAxios.get(
+          `/scraps/${search}`
         );
         setProducts(res.data);
       }else{
-        const res = await axios.get(
-          `https://scrapy-api-qbtq.onrender.com/scraps/.*`
+        const res = await fetchAxios.get(
+          `/scraps/.*`
         );
         setProducts(res.data);
       }
@@ -88,7 +89,7 @@ const DatabasePage = () => {
           {products?.map((item) => (
             <div className='database-card'>
               <img
-                src={`https://scrapy-api-qbtq.onrender.com/image/${item?.imgid}`}
+                src={`https://scrapy-api-7wnj.onrender.com/image/${item?.imgid}`}
                 alt='img'
                 className='card-left'
               />

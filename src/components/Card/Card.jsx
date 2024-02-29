@@ -9,7 +9,7 @@ const Card = ({item}) => {
       <div
         className='product-top'
         style={{
-          background: `url(https://scrapy-api-qbtq.onrender.com/image/${item?.imgid})`,
+          background: `url(https://scrapy-api-7wnj.onrender.com/image/${item?.imgid})`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat:'no-repeat'

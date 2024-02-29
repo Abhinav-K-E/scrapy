@@ -4,16 +4,18 @@ import TopNav from '../../components/Dashboard-component/TopNav/TopNav';
 import Card from '../../components/Card/Card';
 import axios from 'axios';
 import { Triangle } from 'react-loader-spinner';
+import fetchAxios from '../../fetchAxios/fetchAxios';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState(null);
   const [loader, setLoader] = useState(false);
   const[search,setSearch]=useState('');
+  
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(
-        'https://scrapy-api-qbtq.onrender.com/market/.*'
+      const res = await fetchAxios.get(
+        '/market/.*'
       );
       setProducts(res.data);
     };
