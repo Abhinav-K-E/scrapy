@@ -64,7 +64,7 @@ const ProductDetailPage = () => {
                   fill=''
                 />
               </svg>
-              Quality : {ProductDetail?.quality_score}
+              Quality Score: {ProductDetail?.quality_score} %
             </div>
             <div className='tab blue'>
               <svg
@@ -78,7 +78,7 @@ const ProductDetailPage = () => {
                   fill=''
                 />
               </svg>
-              Recyclability : {ProductDetail?.recyclability_score}
+              Recyclability Score : {ProductDetail?.recyclability_score} %
             </div>
             <div className='tab green'>
               <svg
@@ -100,7 +100,7 @@ const ProductDetailPage = () => {
                   fill=''
                 />
               </svg>
-              EST Price : {ProductDetail?.price}
+              EST Value : {ProductDetail?.price}
             </div>
           </div>
         </div>

@@ -190,7 +190,7 @@ const ImageUpload = () => {
                     fill=''
                   />
                 </svg>
-                Quality : {uploadDetail?.quality_score}
+                Quality Score : {uploadDetail?.quality_score} %
               </div>
               <div className='tab blue'>
                 <svg
@@ -204,7 +204,7 @@ const ImageUpload = () => {
                     fill=''
                   />
                 </svg>
-                Recyclability : {uploadDetail?.recyclability_score}
+                Recyclability Score : {uploadDetail?.recyclability_score} %
               </div>
               <div className='tab green'>
                 <svg
@@ -226,7 +226,7 @@ const ImageUpload = () => {
                     fill=''
                   />
                 </svg>
-                EST Price : {uploadDetail?.price}
+                EST Value : {uploadDetail?.price}
               </div>
             </div>
           </div>
