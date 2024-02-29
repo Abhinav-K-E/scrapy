@@ -81,7 +81,7 @@ const LeftNav = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to='/dashboard/srapify'  className='nav-item'>
+            <NavLink to='/dashboard/scrapify'  className='nav-item'>
               <svg
                 width={24}
                 height={24}

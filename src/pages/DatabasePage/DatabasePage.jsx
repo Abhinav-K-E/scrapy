@@ -5,6 +5,9 @@ import axios from 'axios';
 import { Triangle } from 'react-loader-spinner';
 import fetchAxios from '../../fetchAxios/fetchAxios';
 
+import SCRAP from '../../assets/scrap.svg'
+import { Link } from 'react-router-dom';
+
 const DatabasePage = () => {
   const [products, setProducts] = useState(null);
   const [search, setSearch] = useState('');
@@ -64,6 +67,22 @@ const DatabasePage = () => {
               onChange={(event) => setSearch(event.target.value)}
               onKeyDown={handleKeyDown}
             />
+          </div>
+        </div>
+      </div>
+
+      <div className='banner-container '>
+        <div className='banner'>
+          <div className="banner-left">
+            <div className="banner-txt">
+            Your gateway to a world of<br></br> scrap materials !
+            </div>
+            <Link to='/dashboard/scrapify' className="banner-btn">
+              Scrapify
+            </Link>
+          </div>
+          <div className="banner-right">
+            <img className='scrap-img' src={SCRAP} alt="" />
           </div>
         </div>
       </div>

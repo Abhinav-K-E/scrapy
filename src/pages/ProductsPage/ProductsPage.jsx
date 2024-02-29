@@ -7,6 +7,7 @@ import { Triangle } from 'react-loader-spinner';
 import fetchAxios from '../../fetchAxios/fetchAxios';
 
 import SCRAP from '../../assets/scrap.svg'
+import { Link } from 'react-router-dom';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState(null);
@@ -30,16 +31,16 @@ const ProductsPage = () => {
         setProducts={setProducts}
         products={products}
       />
-      
+
       <div className='banner-container'>
         <div className='banner'>
           <div className="banner-left">
             <div className="banner-txt">
             Turn your trash into <br></br> treasure with Scrapify!
             </div>
-            <div className="banner-btn">
+            <Link to='/dashboard/scrapify' className="banner-btn">
               Scrapify
-            </div>
+            </Link>
           </div>
           <div className="banner-right">
             <img className='scrap-img' src={SCRAP} alt="" />
