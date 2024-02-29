@@ -74,6 +74,17 @@ const ImageUpload = () => {
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
+  //sell
+  const handleSell = async()=>{
+    try{
+      await fetchAxios.get(`/scrapify/sell/${imgId}`);
+      console.log('----------')
+    }catch(err){
+      console.error(err);
+    }
+   
+  }
+
   return loader ? (
     <Loader />
   ) : (
@@ -230,7 +241,7 @@ const ImageUpload = () => {
       {/* new  */}
       {uploadDetail != null && (
         <div className='tab-container'>
-          <div className='tab-selctor'>Sell now</div>
+          <div className='tab-selctor' onClick={handleSell} >Sell now</div>
           <div className='tab-selctor'>Donate</div>
           <div className='tab-selctor'>Trash</div>
         </div>
