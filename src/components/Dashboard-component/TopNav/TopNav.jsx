@@ -1,6 +1,7 @@
 import React from 'react';
 import './TopNav.scss';
 import axios from 'axios';
+import fetchAxios from '../../../fetchAxios/fetchAxios';
 
 const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
   const handleKeyDown = async (event) => {
@@ -10,13 +11,13 @@ const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
       setLoader(true);
       // Call your search function here
       if (search.length > 0) {
-        const res = await axios.get(
-          `https://scrapy-api-qbtq.onrender.com/market/${search}`
+        const res = await fetchAxios.get(
+          `/market/${search}`
         );
         setProducts(res.data);
       } else {
-        const res = await axios.get(
-          `https://scrapy-api-qbtq.onrender.com/market/.*`
+        const res = await fetchAxios.get(
+          `/market/.*`
         );
         setProducts(res.data);
       }
