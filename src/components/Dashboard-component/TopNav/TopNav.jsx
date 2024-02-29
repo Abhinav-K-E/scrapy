@@ -52,7 +52,7 @@ const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
       <div className='dash-top-right'>
         <div className='profile'>
           <div className='profile-pic'></div>
-          <div className='profile-name'>John</div>
+          <div className='profile-name'>john abraham</div>
         </div>
       </div>
     </div>

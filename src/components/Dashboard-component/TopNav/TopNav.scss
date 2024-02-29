@@ -15,6 +15,7 @@
     border-radius: 30px;
     padding: 5px;
     height: 60px;
+    filter: drop-shadow(0px 1.729px 5.32px rgba(0, 0, 0, 0.02)) drop-shadow(0px 5.807px 17.869px rgba(0, 0, 0, 0.03)) drop-shadow(0px 26px 80px rgba(0, 0, 0, 0.05));
 }
 
 .profile-pic{
@@ -22,6 +23,10 @@
     height: 50px;
     border-radius: 50%;
     background-color: var(--primary);
+    background: url('../../../assets/profile.jpg');
+    background-position: center;
+    background-size: cover;
+    border: 1px solid var(--fade);
 }
 
 .profile-name{
