@@ -65,8 +65,8 @@ const ImageUpload = () => {
 
   const handleCreative = async () => {
     //getting data
-    const res = await axios.get(
-      `https://scrapy-api-qbtq.onrender.com/scrapify/creative/${imgId}`
+    const res = await fetchAxios.get(
+      `/scrapify/creative/${imgId}`
     );
     setCreativeData(res.data);
     console.log(res);
