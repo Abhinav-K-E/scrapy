@@ -219,6 +219,7 @@
 }
 
 .creative-right{
+  width: 100%;
   font-size: 15px;
   height: 100%;
   font-weight: 400;
@@ -228,6 +229,9 @@
   overflow: hidden;
   overflow-y: auto;
   line-height: 1.5rem;
+  li{
+    padding: 10px;
+  }
 }
 //responsive
 @media (max-width: 800px) {

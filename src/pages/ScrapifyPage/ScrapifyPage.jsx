@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import './ScrapifyPage.scss';
 import Loader from '../../components/Loader/Loader';
@@ -240,7 +239,11 @@ const ImageUpload = () => {
           <div onClick={handleCreative} className='creative-left'>
             Make it creative
           </div>
-          <div className='creative-right'>{creativeData}</div>
+          <div className='creative-right'>{
+          creativeData?.map((item)=>(
+            <li>{item}</li>
+          ))
+          }</div>
         </div>
       )}
       {/* make it creative */}
