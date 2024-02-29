@@ -39,8 +39,8 @@ const ProductDetailPage = () => {
           <div className='u-img-desc'>{ProductDetail?.desc}</div>
           <div className='u-img-head'>Attributes</div>
           <div className='attributes'>
-            {attributes?.map((item) => (
-              <div className='attribute'>{item}</div>
+            {attributes?.map((item,index) => (
+              <div key={index} className='attribute'>{item}</div>
             ))}
           </div>
           <div className='u-img-head'>Analytics</div>

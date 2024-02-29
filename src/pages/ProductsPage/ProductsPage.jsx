@@ -42,8 +42,8 @@ const ProductsPage = () => {
           <p>No result is found !</p>
         )
       }
-        {products?.map((item) => (
-          <Card item={item} />
+        {products?.map((item,index) => (
+          <Card key={index} item={item} />
         ))}
       </div>
     </div>
