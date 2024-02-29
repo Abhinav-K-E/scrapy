@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import './ScrapifyPage.scss';
 import Loader from '../../components/Loader/Loader';
+import fetchAxios from '../../fetchAxios/fetchAxios';
 
 const ImageUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -35,8 +36,8 @@ const ImageUpload = () => {
       formData.append('image', selectedFile);
       console.log(selectedFile);
 
-      const response = await axios.post(
-        'https://scrapy-api-qbtq.onrender.com/scrapifty/upload-img',
+      const response = await fetchAxios.post(
+        '/scrapifty/upload-img',
         formData,
         {
           headers: {},
@@ -46,8 +47,8 @@ const ImageUpload = () => {
       setImgId(response.data.imgid);
 
       //getting data
-      const imgDetail = await axios.get(
-        `https://scrapy-api-qbtq.onrender.com/scrapify/${response.data.imgid}`
+      const imgDetail = await fetchAxios.get(
+        `/scrapify/${response.data.imgid}`
       );
       console.log(imgDetail.data);
       setUploadDetail(imgDetail.data);
