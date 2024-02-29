@@ -1,10 +1,11 @@
 import React from 'react';
 import './Card.scss'
+import { Link } from 'react-router-dom';
 
 const Card = ({item}) => {
   console.log(item.imgid)
   return (
-    <div className='product-card'>
+    <Link to={`/dashboard/products/${item.imgid}`} className='product-card'>
       <div
         className='product-top'
         style={{
@@ -43,7 +44,7 @@ const Card = ({item}) => {
           <div className='buy-btn'>Buy Now</div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
