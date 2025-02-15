@@ -11,7 +11,7 @@ const ProductDetailPage = () => {
   const [ProductDetail, setProductDetail] = useState(null);
   const [attributes, setAttributes] = useState(null);
 
-  useEffect(async () => {
+  useEffect(() => {
     // const fetchData = async () => {
     //   //getting data
     //   const res = await fetchAxios.get(`/scraps/${params.id}`);
@@ -20,9 +20,12 @@ const ProductDetailPage = () => {
     //   console.log(res.data);
     // };
     // fetchData();
-    const data = await fetchAllData();
-    setProductDetail(data[params.id]);
-    setAttributes(data[params.id].attributes);
+    const fetchData = async () => {
+      const data = await fetchAllData();
+      setProductDetail(data[params.id]);
+      setAttributes(data[params.id].attributes);
+    };
+    fetchData();
   }, []);
   return (
     <div className="product-detail-page">
