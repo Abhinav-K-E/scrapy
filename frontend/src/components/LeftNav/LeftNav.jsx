@@ -62,7 +62,7 @@ const LeftNav = () => {
                   fill=""
                 />
               </svg>
-              Schedule
+              My Scraps
             </NavLink>
           </li>
           <li>

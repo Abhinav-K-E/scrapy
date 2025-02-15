@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ProductPage.scss";
 import TopNav from "../../components/Dashboard-component/TopNav/TopNav";
 import Card from "../../components/Card/Card";
-import axios from "axios";
 import { Triangle } from "react-loader-spinner";
-import fetchAxios from "../../fetchAxios/fetchAxios";
 
 import SCRAP from "../../assets/scrap.svg";
 import { Link } from "react-router-dom";
@@ -17,8 +15,6 @@ const ProductsPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const res = await fetchAxios.get('/market/.*');
-      // setProducts(res.data);
       const data = await fetchAllData();
       setProducts(data);
     };
