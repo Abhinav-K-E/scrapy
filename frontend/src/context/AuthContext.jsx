@@ -7,6 +7,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(localStorage.getItem("user"));
+  const [uid, setUid] = useState(localStorage.getItem("uid"));
   const [userData, setUserData] = useState();
   const navigate = useNavigate();
 
@@ -27,6 +28,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const result = await signInWithPopup(auth, provider);
       setUserData(result.user);
+      setUid(result.user.uid);
+      localStorage.setItem("uid", result.user.uid);
       localStorage.setItem("user", true);
       localStorage.setItem("userData", JSON.stringify(result.user));
       setUser(localStorage.getItem("user"));
@@ -53,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     userData,
     signInWithGoogle,
     logout,
+    uid,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

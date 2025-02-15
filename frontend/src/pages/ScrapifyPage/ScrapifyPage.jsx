@@ -4,10 +4,13 @@ import "./ScrapifyPage.scss";
 import Loader from "../../components/Loader/Loader";
 import fetchAxios from "../../fetchAxios/fetchAxios";
 import { useNavigate } from "react-router-dom";
+import { uploadToFirebase } from "../../utils/uploadData";
 
 import toast, { Toaster } from "react-hot-toast";
+import { useAuth } from "../../context/AuthContext";
 
 const ImageUpload = () => {
+  const { uid } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(false);
@@ -44,6 +47,7 @@ const ImageUpload = () => {
       console.log(response);
       setUploadDetail(response.data);
       setUploadStatus(true);
+      await uploadToFirebase(uid, selectedFile, response.data);
       setLoader(false);
 
       //getting data
@@ -98,9 +102,7 @@ const ImageUpload = () => {
                 alt="Selected image preview"
               />
             ) : (
-              <div className="upload-txt">
-                Drag & Drop
-              </div>
+              <div className="upload-txt">Drag & Drop</div>
             )}
           </div>
           {uploadStatus == false && (
@@ -188,9 +190,7 @@ const ImageUpload = () => {
       {/* if there is data */}
       {uploadDetail != null && (
         <div className="creative-box">
-          <div className="creative-left">
-            Make it creative
-          </div>
+          <div className="creative-left">Make it creative</div>
           <div className="creative-right">
             {creativeData?.map((item) => (
               <li>{item}</li>

@@ -16,8 +16,9 @@ const ProductsPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetchAxios.get('/market/.*');
-      setProducts(res.data);
+      // const res = await fetchAxios.get('/market/.*');
+      // setProducts(res.data);
+      
     };
     fetchData();
   }, []);
