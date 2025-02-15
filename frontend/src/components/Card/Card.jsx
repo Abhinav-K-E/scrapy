@@ -2,14 +2,14 @@ import React from 'react';
 import './Card.scss'
 import { Link } from 'react-router-dom';
 
-const Card = ({item}) => {
+const Card = ({item,index}) => {
   console.log(item.imgid)
   return (
-    <Link to={`/dashboard/products/${item.imgid}`} className='product-card'>
+    <Link to={`/dashboard/products/${index}`} className='product-card'>
       <div
         className='product-top'
         style={{
-          background: `url(https://scrapy-api-7wnj.onrender.com/image/${item?.imgid})`,
+          background: `url(${item?.imageUrl})`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat:'no-repeat'
@@ -31,7 +31,7 @@ const Card = ({item}) => {
               fill=''
             />
           </svg>
-          {item?.loc}
+          kozhikode
         </div>
       </div>
       <div className='product-bottom'>
@@ -39,7 +39,7 @@ const Card = ({item}) => {
         <div className='p-bottom'>
           <div className='p-price'>
             <div className='rupee'>₹</div>
-            {item?.price}
+            {item?.estimatedValue}
           </div>
           <div className='buy-btn'>Buy Now</div>
         </div>

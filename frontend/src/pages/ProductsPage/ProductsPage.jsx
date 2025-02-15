@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import './ProductPage.scss';
-import TopNav from '../../components/Dashboard-component/TopNav/TopNav';
-import Card from '../../components/Card/Card';
-import axios from 'axios';
-import { Triangle } from 'react-loader-spinner';
-import fetchAxios from '../../fetchAxios/fetchAxios';
+import React, { useEffect, useState } from "react";
+import "./ProductPage.scss";
+import TopNav from "../../components/Dashboard-component/TopNav/TopNav";
+import Card from "../../components/Card/Card";
+import axios from "axios";
+import { Triangle } from "react-loader-spinner";
+import fetchAxios from "../../fetchAxios/fetchAxios";
 
-import SCRAP from '../../assets/scrap.svg'
-import { Link } from 'react-router-dom';
+import SCRAP from "../../assets/scrap.svg";
+import { Link } from "react-router-dom";
+import { fetchAllData } from "../../utils/getAllScraps";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       // const res = await fetchAxios.get('/market/.*');
       // setProducts(res.data);
-      
+      const data = await fetchAllData();
+      setProducts(data);
     };
     fetchData();
   }, []);
 
   return (
-    <div className='products-page'>
+    <div className="products-page">
       <TopNav
         search={search}
         setSearch={setSearch}
@@ -33,39 +35,39 @@ const ProductsPage = () => {
         products={products}
       />
 
-      <div className='banner-container'>
-        <div className='banner'>
+      <div className="banner-container">
+        <div className="banner">
           <div className="banner-left">
             <div className="banner-txt">
-            Turn your trash into <br></br> treasure with Scrapify!
+              Turn your trash into <br></br> treasure with Scrapify!
             </div>
-            <Link to='/dashboard/scrapify' className="banner-btn">
+            <Link to="/dashboard/scrapify" className="banner-btn">
               Scrapify
             </Link>
           </div>
           <div className="banner-right">
-            <img className='scrap-img' src={SCRAP} alt="" />
+            <img className="scrap-img" src={SCRAP} alt="" />
           </div>
         </div>
       </div>
 
-      <div className='product-cards'>
+      <div className="product-cards">
         {loader && (
-          <div className='lod-contain'>
+          <div className="lod-contain">
             <Triangle
               visible={true}
-              height='80'
-              width='80'
-              color='#131736'
-              ariaLabel='triangle-loading'
+              height="80"
+              width="80"
+              color="#131736"
+              ariaLabel="triangle-loading"
               wrapperStyle={{}}
-              wrapperClass=''
+              wrapperClass=""
             />
           </div>
         )}
         {products?.length == 0 && <p>No result is found !</p>}
         {products?.map((item, index) => (
-          <Card key={index} item={item} />
+          <Card key={index} item={item} index={index} />
         ))}
       </div>
     </div>
