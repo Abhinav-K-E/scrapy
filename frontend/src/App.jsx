@@ -14,6 +14,7 @@ import DatabasePage from "./pages/DatabasePage/DatabasePage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import MyScrapsPage from "./pages/MyScrapsPage/MyScrapsPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
+import ChatPage from "./pages/chatPage/ChatPage";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
               element={<ProductDetailPage />}
             />
             <Route path="/dashboard/users" element={<UsersPage />} />
+            <Route path="/dashboard/chat" element={<ChatPage />} />
           </Route>
         </Routes>
       </div>
