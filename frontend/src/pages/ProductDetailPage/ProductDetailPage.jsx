@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ProductDetailPage.scss";
 import { useParams } from "react-router-dom";
-import fetchAxios from "../../fetchAxios/fetchAxios";
 import { fetchAllData } from "../../utils/getAllScraps";
 
 const ProductDetailPage = () => {
@@ -12,14 +11,6 @@ const ProductDetailPage = () => {
   const [attributes, setAttributes] = useState(null);
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   //getting data
-    //   const res = await fetchAxios.get(`/scraps/${params.id}`);
-    //   setProductDetail(res.data[0]);
-    //   setAttributes(res.data[0].attributes);
-    //   console.log(res.data);
-    // };
-    // fetchData();
     const fetchData = async () => {
       const data = await fetchAllData();
       setProductDetail(data[params.id]);
