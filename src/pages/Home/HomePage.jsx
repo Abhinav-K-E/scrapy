@@ -1,15 +1,12 @@
-import React from 'react'
-import './HomePage.scss'
-import { Link } from 'react-router-dom'
-
-const HomePage = () => {
+import React from "react";
+import "./HomePage.scss";
+import Nav from "../../components/Nav/Nav";
+const Home = () => {
   return (
-    <div className='home'>
-      <Link to='/dashboard/products' className="login-btn">
-        Login to Continue
-      </Link>
+    <div className="home">
+      <Nav />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default Home;

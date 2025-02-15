@@ -1,23 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* import font  */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 0px;
 }
 
-.app{
+.app {
   width: 100%;
   height: 100vh;
   font-family: "Poppins", sans-serif;
 }
 
-:root{
-  --primary:#F5F5F5;
-  --txt:#131736;
-  --fade:#6F7181;
+:root {
+  --primary-bg: #f6f6f6;
+  --sec-bg: #1e1e2d;
+  --primary-txt: #000000;
+  --txt: #131736;
+  --fade: #6f7181;
 }

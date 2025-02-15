@@ -1,58 +1,62 @@
-.dash-top-nav{
-    width: 100%;
-    padding: 20px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.dash-top-nav {
+  width: 100%;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.profile{
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 30px;
-    padding: 5px;
-    height: 60px;
-    filter: drop-shadow(0px 1.729px 5.32px rgba(0, 0, 0, 0.02)) drop-shadow(0px 5.807px 17.869px rgba(0, 0, 0, 0.03)) drop-shadow(0px 26px 80px rgba(0, 0, 0, 0.05));
+.profile {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 5px;
+  height: 60px;
+  filter: drop-shadow(0px 1.729px 5.32px rgba(0, 0, 0, 0.02))
+    drop-shadow(0px 5.807px 17.869px rgba(0, 0, 0, 0.03))
+    drop-shadow(0px 26px 80px rgba(0, 0, 0, 0.05));
 }
 
-.profile-pic{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--primary);
-    background: url('../../../assets/profile.jpg');
-    background-position: center;
-    background-size: cover;
-    border: 1px solid var(--fade);
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-bg);
+  background: url("../../../assets/profile.jpg");
+  background-position: center;
+  background-size: cover;
+  border: 1px solid var(--fade);
 }
 
-.profile-name{
-    font-size: 14px;
-    margin-right: 5px;
+.profile-name {
+  font-size: 14px;
+  margin-right: 5px;
 }
 
 // search-ui
-.search-bar{
-    width: 600px;
-    height: 60px;
-    display: flex;
-    background-color: #fff;
-    padding: 10px 15px;
-    border-radius: 30px;
-    align-items: center;
-    gap: 10px;
-    filter: drop-shadow(0px 1.729px 5.32px rgba(0, 0, 0, 0.02)) drop-shadow(0px 5.807px 17.869px rgba(0, 0, 0, 0.03)) drop-shadow(0px 26px 80px rgba(0, 0, 0, 0.05));
+.search-bar {
+  width: 600px;
+  height: 60px;
+  display: flex;
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 30px;
+  align-items: center;
+  gap: 10px;
+  filter: drop-shadow(0px 1.729px 5.32px rgba(0, 0, 0, 0.02))
+    drop-shadow(0px 5.807px 17.869px rgba(0, 0, 0, 0.03))
+    drop-shadow(0px 26px 80px rgba(0, 0, 0, 0.05));
 }
 
-.search{
-    outline: none;
-    border: none;
+.search {
+  outline: none;
+  border: none;
 }
 
-.search::placeholder{
-    font-weight: 300;
-    color: var(--fade);
+.search::placeholder {
+  font-weight: 300;
+  color: var(--fade);
 }
