@@ -2,8 +2,10 @@ import React from "react";
 import "./LeftNav.scss";
 import { Link, NavLink } from "react-router-dom";
 import LOGO from "../../assets/images/logo.svg";
+import { useAuth } from "../../context/AuthContext";
 
 const LeftNav = () => {
+  const { logout } = useAuth();
   return (
     <div className="left-nav">
       <div className="left-nav-grp">
@@ -110,7 +112,7 @@ const LeftNav = () => {
         </ul>
       </div>
 
-      <Link to="/" className="log-out">
+      <div onClick={() => logout()} className="log-out">
         <svg
           width={21}
           height={22}
@@ -131,7 +133,7 @@ const LeftNav = () => {
           />
         </svg>
         Logout
-      </Link>
+      </div>
     </div>
   );
 };
