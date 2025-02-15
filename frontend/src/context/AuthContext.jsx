@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, provider } from "../../firebaseConfig";
+import { auth, provider, db } from "../../firebaseConfig";
 import { signInWithPopup, signOut } from "firebase/auth";
-// creating context
+import { doc, setDoc, getDoc } from "firebase/firestore";
+
+// Creating context
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -11,31 +13,43 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState();
   const navigate = useNavigate();
 
-  // const SignInWithGoogle = () => {
-  //   localStorage.setItem("user", true);
-  //   setUser(localStorage.getItem("user"));
-  //   navigate("/dashboard/products");
-  // };
-
-  // const signOut = async () => {
-  //   localStorage.clear();
-  //   setUser(null);
-  //   window.location.href = "/";
-  // };
-
   // Sign in with Google
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      setUserData(result.user);
-      setUid(result.user.uid);
-      localStorage.setItem("uid", result.user.uid);
+      const googleUser = result.user;
+
+      setUserData(googleUser);
+      setUid(googleUser.uid);
+      localStorage.setItem("uid", googleUser.uid);
       localStorage.setItem("user", true);
-      localStorage.setItem("userData", JSON.stringify(result.user));
+      localStorage.setItem("userData", JSON.stringify(googleUser));
       setUser(localStorage.getItem("user"));
+
+      // Store user data in Firestore
+      await saveUserToFirestore(googleUser);
+
       navigate("/dashboard/products");
     } catch (error) {
       console.error("Google Sign-in Error:", error);
+    }
+  };
+
+  // Save user data to Firestore
+  const saveUserToFirestore = async (user) => {
+    if (!user) return;
+
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await setDoc(userRef, {
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        createdAt: new Date(),
+      });
     }
   };
 

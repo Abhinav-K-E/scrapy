@@ -13,6 +13,7 @@ import ScrapifyPage from "./pages/ScrapifyPage/ScrapifyPage";
 import DatabasePage from "./pages/DatabasePage/DatabasePage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import MyScrapsPage from "./pages/MyScrapsPage/MyScrapsPage";
+import UsersPage from "./pages/UsersPage/UsersPage";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
               path="/dashboard/products/:id"
               element={<ProductDetailPage />}
             />
+            <Route path="/dashboard/users" element={<UsersPage />} />
           </Route>
         </Routes>
       </div>

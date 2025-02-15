@@ -2,12 +2,7 @@ import { storage, db, auth } from "../../firebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 
-export const uploadToFirebase = async (uid,imageFile, uploadDetail) => {
-//   if (!imageFile || !uploadDetail) {
-//     console.error("No image or data to upload.");
-//     return;
-//   }
-
+export const uploadToFirebase = async (uid, imageFile, uploadDetail) => {
   const user = auth.currentUser;
   if (!user) {
     console.error("User not authenticated!");
@@ -30,6 +25,8 @@ export const uploadToFirebase = async (uid,imageFile, uploadDetail) => {
       estimatedValue: uploadDetail.price,
       attributes: uploadDetail.attributes,
       imageUrl: downloadURL,
+      marketplace: false, // List in marketplace
+      scrapDbImport: true, // Not imported
       timestamp: new Date(),
     });
 
