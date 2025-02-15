@@ -12,7 +12,6 @@ const ImageUpload = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(false);
   const [uploadDetail, setUploadDetail] = useState(null);
-  const [attributes, setAttributes] = useState(null);
   const [loader, setLoader] = useState(false);
   const [imgId, setImgId] = useState(null);
   const [creativeData, setCreativeData] = useState(null);
@@ -39,24 +38,6 @@ const ImageUpload = () => {
       const formData = new FormData();
       formData.append("image", selectedFile);
       console.log(selectedFile);
-
-      // const response = await fetchAxios.post(
-      //   '/scrapifty/upload-img',
-      //   formData,
-      //   {
-      //     headers: {},
-      //   }
-      // );
-      // console.log(response.data.imgid);
-      // setImgId(response.data.imgid);
-
-      //getting data
-      // const imgDetail = await fetchAxios.get(
-      //   `/scrapify/${response.data.imgid}`
-      // );
-      // console.log(imgDetail.data);
-      // setUploadDetail(imgDetail.data);
-      // setAttributes(imgDetail.data.attributes);
       const response = await fetchAxios.post("/scrapify", formData, {
         headers: {},
       });
@@ -64,17 +45,15 @@ const ImageUpload = () => {
       setUploadDetail(response.data);
       setUploadStatus(true);
       setLoader(false);
+
+      //getting data
+      const res = await fetchAxios.post(`/repurpose`, formData);
+      setCreativeData(res.data.ideas);
+      console.log(res);
     } catch (error) {
       console.error(error);
       setUploadStatus(false);
     }
-  };
-
-  const handleCreative = async () => {
-    //getting data
-    const res = await fetchAxios.get(`/scrapify/creative/${imgId}`);
-    setCreativeData(res.data);
-    console.log(res);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
@@ -120,34 +99,6 @@ const ImageUpload = () => {
               />
             ) : (
               <div className="upload-txt">
-                <svg
-                  width={105}
-                  height={105}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M69.857 69.575L52.524 52.242 35.19 69.575M52.524 52.242v39"
-                    stroke="#000"
-                    strokeWidth={5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M88.88 79.932a21.667 21.667 0 00-10.356-40.69h-5.46a34.667 34.667 0 10-59.54 31.633"
-                    stroke="#000"
-                    strokeWidth={5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M69.857 69.575L52.524 52.242 35.19 69.575"
-                    stroke="#000"
-                    strokeWidth={5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
                 Drag & Drop
               </div>
             )}
@@ -237,7 +188,7 @@ const ImageUpload = () => {
       {/* if there is data */}
       {uploadDetail != null && (
         <div className="creative-box">
-          <div onClick={handleCreative} className="creative-left">
+          <div className="creative-left">
             Make it creative
           </div>
           <div className="creative-right">
@@ -248,7 +199,6 @@ const ImageUpload = () => {
         </div>
       )}
       {/* make it creative */}
-
       {/* new  */}
       {uploadDetail != null && (
         <div className="tab-container">

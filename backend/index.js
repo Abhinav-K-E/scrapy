@@ -75,7 +75,7 @@ app.post("/scrapify", upload.single("image"), async (req, res) => {
       short_des: parseAIKey("short_des", responseText),
       shape: parseAIKey("shape", responseText),
       color: parseAIKey("color", responseText),
-      price: parseAIKey("price", responseText), 
+      price: parseAIKey("price", responseText),
       quality_score: parseAIKey("quality_score", responseText),
       recyclability_score: parseAIKey("recyclability_score", responseText),
       material: parseAIKey("material", responseText)
@@ -115,8 +115,8 @@ app.post("/repurpose", upload.single("image"), async (req, res) => {
         {
           parts: [
             {
-              text: `Suggest creative repurposing ideas for this object in a list format:
-                ideas==[idea1, idea2, idea3]
+              text: `Suggest creative repurposing ideas for this object in a list format with minimum of 5 points:
+                ideas==[idea1, idea2, idea3,idea4]
                 `,
             },
             {
