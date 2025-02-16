@@ -29,8 +29,8 @@ const ReportIssueForm = () => {
         userId: uid,
         title: title,
         description: description,
-        severity: severity,
-        status: "open",
+        // severity: severity,
+        // status: "open",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       };
@@ -59,7 +59,7 @@ const ReportIssueForm = () => {
   return (
     <div className="report-page">
       <div className="report-issue-container">
-        <h2>Report an Issue</h2>
+        <h2>Feedback</h2>
 
         {isSubmitted && (
           <div className="success-message">
@@ -96,7 +96,7 @@ const ReportIssueForm = () => {
             />
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="issue-severity">Severity</label>
             <select
               id="issue-severity"
@@ -115,7 +115,7 @@ const ReportIssueForm = () => {
                 Critical - Complete failure or data loss
               </option>
             </select>
-          </div>
+          </div> */}
 
           <button
             type="submit"

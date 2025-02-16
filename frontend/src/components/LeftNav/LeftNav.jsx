@@ -213,7 +213,7 @@ const LeftNav = () => {
                     fill=""
                   />
                 </svg>
-                Report Issue
+                Feedback
               </NavLink>
             </li>
           </ul>

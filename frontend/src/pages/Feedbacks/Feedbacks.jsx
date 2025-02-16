@@ -71,36 +71,36 @@ const Feedbacks = () => {
   };
 
   // Get severity badge class
-  const getSeverityClass = (severity) => {
-    switch (severity) {
-      case "low":
-        return "severity-low";
-      case "medium":
-        return "severity-medium";
-      case "high":
-        return "severity-high";
-      case "critical":
-        return "severity-critical";
-      default:
-        return "severity-medium";
-    }
-  };
+//   const getSeverityClass = (severity) => {
+//     switch (severity) {
+//       case "low":
+//         return "severity-low";
+//       case "medium":
+//         return "severity-medium";
+//       case "high":
+//         return "severity-high";
+//       case "critical":
+//         return "severity-critical";
+//       default:
+//         return "severity-medium";
+//     }
+//   };
 
   // Get status badge class
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "open":
-        return "status-open";
-      case "in-progress":
-        return "status-in-progress";
-      case "resolved":
-        return "status-resolved";
-      case "closed":
-        return "status-closed";
-      default:
-        return "status-open";
-    }
-  };
+//   const getStatusClass = (status) => {
+//     switch (status) {
+//       case "open":
+//         return "status-open";
+//       case "in-progress":
+//         return "status-in-progress";
+//       case "resolved":
+//         return "status-resolved";
+//       case "closed":
+//         return "status-closed";
+//       default:
+//         return "status-open";
+//     }
+//   };
 
   return (
     <div className="issues-page-container">
@@ -115,11 +115,11 @@ const Feedbacks = () => {
             value={filter}
             onChange={handleFilterChange}
           >
-            <option value="all">All Issues</option>
-            <option value="open">Open</option>
-            <option value="in-progress">In Progress</option>
-            <option value="resolved">Resolved</option>
-            <option value="closed">Closed</option>
+            <option value="all">All Feedback</option>
+            {/* <option value="open">Open</option> */}
+            {/* <option value="in-progress">In Progress</option> */}
+            {/* <option value="resolved">Resolved</option> */}
+            {/* <option value="closed">Closed</option> */}
           </select>
         </div>
 
@@ -127,8 +127,8 @@ const Feedbacks = () => {
           <label htmlFor="sort-by">Sort by:</label>
           <select id="sort-by" value={sortBy} onChange={handleSortChange}>
             <option value="createdAt">Creation Date</option>
-            <option value="updatedAt">Last Updated</option>
-            <option value="severity">Severity</option>
+            {/* <option value="updatedAt">Last Updated</option> */}
+            {/* <option value="severity">Severity</option> */}
             <option value="title">Title</option>
           </select>
 
@@ -166,13 +166,13 @@ const Feedbacks = () => {
                 >
                   <div className="issue-header">
                     <h3 className="issue-title">{issue.title}</h3>
-                    <span
+                    {/* <span
                       className={`severity-badge ${getSeverityClass(
                         issue.severity
                       )}`}
                     >
                       {issue.severity}
-                    </span>
+                    </span> */}
                   </div>
 
                   <p className="issue-description">
@@ -180,11 +180,11 @@ const Feedbacks = () => {
                   </p>
 
                   <div className="issue-footer">
-                    <span
+                    {/* <span
                       className={`status-badge ${getStatusClass(issue.status)}`}
                     >
                       {issue.status}
-                    </span>
+                    </span> */}
                     <span className="issue-date">
                       Created: {formatDate(issue.createdAt)}
                     </span>
@@ -212,17 +212,17 @@ const Feedbacks = () => {
 
             <div className="issue-detail-header">
               <h2>{selectedIssue.title}</h2>
-              <span
+              {/* <span
                 className={`severity-badge ${getSeverityClass(
                   selectedIssue.severity
                 )}`}
               >
                 {selectedIssue.severity}
-              </span>
+              </span> */}
             </div>
 
             <div className="issue-detail-metadata">
-              <div className="metadata-item">
+              {/* <div className="metadata-item">
                 <strong>Status:</strong>
                 <span
                   className={`status-badge ${getStatusClass(
@@ -231,7 +231,7 @@ const Feedbacks = () => {
                 >
                   {selectedIssue.status}
                 </span>
-              </div>
+              </div> */}
               <div className="metadata-item">
                 <strong>Created:</strong> {formatDate(selectedIssue.createdAt)}
               </div>
