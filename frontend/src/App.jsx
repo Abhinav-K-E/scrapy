@@ -19,6 +19,7 @@ import AdminLoginPage from "./pages/AdminLogin/AdminLogin";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import AdminScrapManagment from "./pages/AdminScrapManagment/AdminScrapManagment";
 import ReportIssueForm from "./pages/ReportPage/ReportPage";
+import Feedbacks from "./pages/Feedbacks/Feedbacks";
 
 const App = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/admin" element={<AdminPage />}>
             <Route path="/admin/users" element={<UsersPage />} />
             <Route path="/admin/database" element={<AdminScrapManagment />} />
+            <Route path="/admin/feedbacks" element={<Feedbacks />} />
           </Route>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard/products" element={<ProductPage />} />

@@ -25,7 +25,6 @@ const ReportIssueForm = () => {
     setError(null);
 
     try {
-      // Create the issue object
       const issueData = {
         userId: uid,
         title: title,
