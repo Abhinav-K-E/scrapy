@@ -1,7 +1,7 @@
 import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebaseConfig"; 
+import { db } from "../../firebaseConfig";
 
-const deleteDoc = async (collectionName, docId) => {
+const deleteDocument = async (collectionName, docId) => {
   try {
     const docRef = doc(db, collectionName, docId);
     await deleteDoc(docRef);

@@ -17,6 +17,7 @@ import UsersPage from "./pages/UsersPage/UsersPage";
 import ChatPage from "./pages/chatPage/ChatPage";
 import AdminLoginPage from "./pages/AdminLogin/AdminLogin";
 import AdminPage from "./pages/AdminPage/AdminPage";
+import AdminScrapManagment from "./pages/AdminScrapManagment/AdminScrapManagment";
 
 const App = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/admin" element={<AdminLoginPage />} />
           <Route path="/admin" element={<AdminPage />}>
             <Route path="/admin/users" element={<UsersPage />} />
+            <Route path="/admin/database" element={<AdminScrapManagment />} />
           </Route>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard/products" element={<ProductPage />} />
