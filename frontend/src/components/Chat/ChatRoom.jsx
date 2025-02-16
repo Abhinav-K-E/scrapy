@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { db,auth } from "../../../firebaseConfig";
-import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "firebase/firestore";
+import { db, auth } from "../../../firebaseConfig";
+import {
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  serverTimestamp,
+} from "firebase/firestore";
 
-import './ChatRoom.scss'
+import "./ChatRoom.scss";
+import { useAuth } from "../../context/AuthContext";
 
-const Chat = ({ selectedUser }) => {
+const Chat = () => {
+  const { selectedUser } = useAuth();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
@@ -12,12 +21,17 @@ const Chat = ({ selectedUser }) => {
   if (!selectedUser) return <p>Please select a user to chat.</p>;
 
   // Create unique chat ID based on two user UIDs (sorted for consistency)
-  const chatId = [currentUser.uid, selectedUser.uid].sort().join("_");
+  const chatId = [currentUser.uid, selectedUser || selectedUser.uid]
+    .sort()
+    .join("_");
 
   useEffect(() => {
-    const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
+    const q = query(
+      collection(db, "chats", chatId, "messages"),
+      orderBy("timestamp", "asc")
+    );
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setMessages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      setMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
 
     return () => unsubscribe();
@@ -29,7 +43,7 @@ const Chat = ({ selectedUser }) => {
     await addDoc(collection(db, "chats", chatId, "messages"), {
       text: newMessage,
       senderId: currentUser.uid,
-      receiverId: selectedUser.uid,
+      receiverId: selectedUser || selectedUser.uid,
       timestamp: serverTimestamp(),
     });
 
@@ -40,18 +54,23 @@ const Chat = ({ selectedUser }) => {
     <div className="chat-container">
       {/* <h2>Chat with {selectedUser.name}</h2> */}
       <div className="messages">
-        {messages.map(msg => (
-          <div key={msg.id} className={`message ${msg.senderId === currentUser.uid ? "sent" : "received"}`}>
+        {messages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`message ${
+              msg.senderId === currentUser.uid ? "sent" : "received"
+            }`}
+          >
             <p>{msg.text}</p>
           </div>
         ))}
       </div>
       <div className="chat-input">
-        <input 
-          type="text" 
-          placeholder="Type a message..." 
-          value={newMessage} 
-          onChange={(e) => setNewMessage(e.target.value)} 
+        <input
+          type="text"
+          placeholder="Type a message..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
         />
         <button onClick={sendMessage}>Send</button>
       </div>

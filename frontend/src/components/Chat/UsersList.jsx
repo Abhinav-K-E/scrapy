@@ -3,10 +3,10 @@ import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from "../../../firebaseConfig";
 import { useAuth } from "../../context/AuthContext";
 
-import './UsersList.scss'
+import "./UsersList.scss";
 
-const UsersList = ({ setSelectedUser }) => {
-  const { uid } = useAuth();
+const UsersList = () => {
+  const { uid, selectedUser, setSelectedUser } = useAuth();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

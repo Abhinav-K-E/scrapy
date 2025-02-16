@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./ProductDetailPage.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchAllData } from "../../utils/getAllScraps";
+import { useAuth } from "../../context/AuthContext";
 
 const ProductDetailPage = () => {
   const params = useParams();
-  console.log(params.id);
+  //chat
+  const { selectedUser, setSelectedUser, uid } = useAuth();
+  const navigate = useNavigate();
+  console.log(selectedUser);
 
   const [ProductDetail, setProductDetail] = useState(null);
   const [attributes, setAttributes] = useState(null);
@@ -15,16 +19,18 @@ const ProductDetailPage = () => {
       const data = await fetchAllData();
       setProductDetail(data[params.id]);
       setAttributes(data[params.id].attributes);
+      setSelectedUser(data[params.id].userId);
     };
     fetchData();
   }, []);
+
+  //select chat
+  const redirectChat = (uid) => {
+    navigate("/dashboard/chat");
+  };
   return (
     <div className="product-detail-page">
       <div className="product-detail-grid">
-        <div className="product-left-grid">
-          <img src={`${ProductDetail?.imageUrl}`} alt="img" className="" />
-        </div>
-
         <div className="product-right-grid">
           <div className="u-img-name">{ProductDetail?.title}</div>
           <div className="u-img-desc">{ProductDetail?.description}</div>
@@ -96,7 +102,31 @@ const ProductDetailPage = () => {
               </svg>
               EST Value : {ProductDetail?.estimatedValue}
             </div>
+
+            {uid != ProductDetail?.userId && (
+              <button
+                className="chat-button"
+                onClick={() => redirectChat()}
+                aria-label="Open chat"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                </svg>
+                Buy Now
+              </button>
+            )}
           </div>
+        </div>
+        <div className="product-left-grid">
+          <img src={`${ProductDetail?.imageUrl}`} alt="img" className="" />
         </div>
       </div>
     </div>
