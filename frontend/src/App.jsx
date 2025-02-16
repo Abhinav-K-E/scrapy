@@ -18,6 +18,7 @@ import ChatPage from "./pages/chatPage/ChatPage";
 import AdminLoginPage from "./pages/AdminLogin/AdminLogin";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import AdminScrapManagment from "./pages/AdminScrapManagment/AdminScrapManagment";
+import ReportIssueForm from "./pages/ReportPage/ReportPage";
 
 const App = () => {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ const App = () => {
               element={<ProductDetailPage />}
             />
             <Route path="/dashboard/chat" element={<ChatPage />} />
+            <Route path="/dashboard/report" element={<ReportIssueForm />} />
           </Route>
         </Routes>
       </div>
