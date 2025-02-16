@@ -51,7 +51,7 @@ const AdminScrapManagment = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchAllData();
+      const data = await fetchAllData("scraps");
       setProducts(data);
       console.log(data);
     };
