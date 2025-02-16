@@ -1,0 +1,70 @@
+.users-list {
+  background-color: #fff;
+//   border-radius: 8px;
+//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 280px;
+  min-height: 100vh;
+  border-left:2px solid #33333335 ;
+  h2 {
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .user:hover {
+    background-color: #f5f7fa;
+  }
+
+  .user:active {
+    background-color: #e9ecef;
+  }
+
+  .user:not(:last-child) {
+    margin-bottom: 8px;
+  }
+
+  .user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 1px solid #e0e0e0;
+  }
+
+  .user p {
+    margin: 0;
+    font-size: 15px;
+    color: #444;
+  }
+
+  /* Empty state */
+  .users-list:empty::after {
+    content: "No users available";
+    display: block;
+    text-align: center;
+    color: #888;
+    padding: 20px 0;
+    font-style: italic;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .users-list {
+      max-width: 100%;
+    }
+  }
+}

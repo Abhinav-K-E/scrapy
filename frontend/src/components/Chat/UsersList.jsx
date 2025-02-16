@@ -3,6 +3,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from "../../../firebaseConfig";
 import { useAuth } from "../../context/AuthContext";
 
+import './UsersList.scss'
+
 const UsersList = ({ setSelectedUser }) => {
   const { uid } = useAuth();
   const [users, setUsers] = useState([]);
@@ -17,7 +19,7 @@ const UsersList = ({ setSelectedUser }) => {
 
   return (
     <div className="users-list">
-      <h2>Select a User</h2>
+      <h2>Chat</h2>
       {users
         .filter((user) => user.uid !== uid) // Exclude self
         .map((user) => (

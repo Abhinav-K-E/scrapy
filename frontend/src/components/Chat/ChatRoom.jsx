@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { db,auth } from "../../../firebaseConfig";
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "firebase/firestore";
 
+import './ChatRoom.scss'
+
 const Chat = ({ selectedUser }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -36,7 +38,7 @@ const Chat = ({ selectedUser }) => {
 
   return (
     <div className="chat-container">
-      <h2>Chat with {selectedUser.name}</h2>
+      {/* <h2>Chat with {selectedUser.name}</h2> */}
       <div className="messages">
         {messages.map(msg => (
           <div key={msg.id} className={`message ${msg.senderId === currentUser.uid ? "sent" : "received"}`}>
