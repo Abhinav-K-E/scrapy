@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [uid, setUid] = useState(localStorage.getItem("uid"));
   const [userData, setUserData] = useState();
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // Sign in with Google
   const signInWithGoogle = async () => {
@@ -71,6 +72,8 @@ export const AuthProvider = ({ children }) => {
     signInWithGoogle,
     logout,
     uid,
+    isAdmin,
+    setIsAdmin,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -53,10 +53,11 @@
   }
 
   .login-header h1 {
-    font-size: 24px;
+    font-size: 26px;
     color: #2d3748;
     margin-bottom: 8px;
     margin-top: 0;
+    font-weight: 600;
   }
 
   .login-header p {
@@ -121,7 +122,7 @@
   }
 
   .login-button:hover:not(:disabled) {
-    background-color: #2c5282;
+    background-color: #121212e0;
   }
 
   .login-button:disabled {

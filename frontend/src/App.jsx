@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 // authprovider
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -16,14 +16,26 @@ import MyScrapsPage from "./pages/MyScrapsPage/MyScrapsPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
 import ChatPage from "./pages/chatPage/ChatPage";
 import AdminLoginPage from "./pages/AdminLogin/AdminLogin";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 const App = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const checkAdmin = localStorage.getItem("isAdmin");
+    console.log(checkAdmin);
+    if (checkAdmin == "true") {
+      navigate("/admin/users");
+    }
+  }, []);
   return (
     <AuthProvider>
       <div className="app">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/admin" element={<AdminLoginPage/>}/>
+          <Route path="/admin" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<AdminPage />}>
+            <Route path="/admin/users" element={<UsersPage />} />
+          </Route>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard/products" element={<ProductPage />} />
             <Route path="/dashboard/scrapify" element={<ScrapifyPage />} />
@@ -33,7 +45,6 @@ const App = () => {
               path="/dashboard/products/:id"
               element={<ProductDetailPage />}
             />
-            <Route path="/dashboard/users" element={<UsersPage />} />
             <Route path="/dashboard/chat" element={<ChatPage />} />
           </Route>
         </Routes>

@@ -18,7 +18,7 @@ const UsersList = ({ setSelectedUser }) => {
   }, []);
 
   return (
-    <div className="users-list">
+    <div className="users-list-com">
       <h2>Chat</h2>
       {users
         .filter((user) => user.uid !== uid) // Exclude self
