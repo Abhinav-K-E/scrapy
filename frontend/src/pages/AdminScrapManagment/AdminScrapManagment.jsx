@@ -69,7 +69,7 @@ const AdminScrapManagment = () => {
   return (
     <div className="page-container">
       <header className="page-header">
-        <h1 className="page-title">Scrap Database</h1>
+        <h1 className="page-title">Marketplace Database</h1>
       </header>
 
       <main className="product-grid">

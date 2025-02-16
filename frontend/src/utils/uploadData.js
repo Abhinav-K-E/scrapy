@@ -30,7 +30,22 @@ export const uploadToFirebase = async (uid, imageFile, uploadDetail) => {
       timestamp: new Date(),
     });
 
-    console.log("Document written with ID:", docRef.id);
+    //db for all scraps
+    const docRef_db = await addDoc(collection(db, "scraps_db"), {
+      userId: uid, // Store UID
+      title: uploadDetail.title,
+      description: uploadDetail.desc,
+      qualityScore: uploadDetail.quality_score,
+      recyclabilityScore: uploadDetail.recyclability_score,
+      estimatedValue: uploadDetail.price,
+      attributes: uploadDetail.attributes,
+      imageUrl: downloadURL,
+      marketplace: false, // List in marketplace
+      scrapDbImport: true, // Not imported
+      timestamp: new Date(),
+    });
+
+    console.log("Document written with ID:", docRef.id, docRef_db);
     return true;
   } catch (error) {
     console.error("Error uploading to Firebase:", error);
