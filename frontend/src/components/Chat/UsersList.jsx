@@ -26,7 +26,7 @@ const UsersList = () => {
           <div
             key={user.uid}
             className="user"
-            onClick={() => setSelectedUser(user)}
+            onClick={() => setSelectedUser(user.uid)}
           >
             <img src={user.photoURL} alt="User" />
             <p>{user.name}</p>
