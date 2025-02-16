@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./AdminScrapManagment.scss";
 import { fetchAllData } from "../../utils/getAllScraps";
-import { deleteDoc } from "firebase/firestore";
 import deleteDocument from "../../utils/deleteDoc";
 
 const ProductCard = ({ id, image, title, description, price, onDelete }) => {
