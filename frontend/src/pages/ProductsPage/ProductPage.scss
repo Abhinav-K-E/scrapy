@@ -3,11 +3,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   overflow-y: auto;
-
   // banner
-
   .banner-container {
     padding: 20px 40px;
     display: flex;
@@ -53,10 +50,11 @@
 
 .product-cards {
   width: 100%;
+  max-width: 800px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 40px;
+  // padding: 20px 40px;
   flex-wrap: wrap;
   gap: 20px;
 }
