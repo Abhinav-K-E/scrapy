@@ -15,6 +15,7 @@ import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import MyScrapsPage from "./pages/MyScrapsPage/MyScrapsPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
 import ChatPage from "./pages/chatPage/ChatPage";
+import AdminLoginPage from "./pages/AdminLogin/AdminLogin";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <div className="app">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<AdminLoginPage/>}/>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard/products" element={<ProductPage />} />
             <Route path="/dashboard/scrapify" element={<ScrapifyPage />} />
