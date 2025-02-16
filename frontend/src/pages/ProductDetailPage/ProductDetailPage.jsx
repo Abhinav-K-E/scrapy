@@ -16,7 +16,7 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchAllData();
+      const data = await fetchAllData("scraps");
       setProductDetail(data[params.id]);
       setAttributes(data[params.id].attributes);
       setSelectedUser(data[params.id].userId);

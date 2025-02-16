@@ -13,7 +13,7 @@
   }
   .banner {
     width: 100%;
-    max-width: 800px;
+    max-width: 90%;
     background-color: #55c960;
     border-radius: 20px;
     background-image: url('../../assets/bg.svg');
@@ -50,7 +50,6 @@
 
 .product-cards {
   width: 100%;
-  max-width: 800px;
   display: flex;
   align-items: center;
   justify-content: center;
