@@ -40,11 +40,11 @@ const App = () => {
             <Route path="/admin/users" element={<UsersPage />} />
             <Route path="/admin/database" element={<AdminScrapManagment />} />
             <Route path="/admin/feedbacks" element={<Feedbacks />} />
+            <Route path="/admin/db" element={<DatabasePage />} />
           </Route>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard/products" element={<ProductPage />} />
             <Route path="/dashboard/scrapify" element={<ScrapifyPage />} />
-            <Route path="/dashboard/database" element={<DatabasePage />} />
             <Route path="/dashboard/shedule" element={<MyScrapsPage />} />
             <Route
               path="/dashboard/products/:id"

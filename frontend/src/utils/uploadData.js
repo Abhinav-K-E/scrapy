@@ -15,21 +15,6 @@ export const uploadToFirebase = async (uid, imageFile, uploadDetail) => {
     const snapshot = await uploadBytes(storageRef, imageFile);
     const downloadURL = await getDownloadURL(snapshot.ref);
 
-    // 2. Save Metadata to Firestore (with UID)
-    const docRef = await addDoc(collection(db, "scraps"), {
-      userId: uid, // Store UID
-      title: uploadDetail.title,
-      description: uploadDetail.desc,
-      qualityScore: uploadDetail.quality_score,
-      recyclabilityScore: uploadDetail.recyclability_score,
-      estimatedValue: uploadDetail.price,
-      attributes: uploadDetail.attributes,
-      imageUrl: downloadURL,
-      marketplace: false, // List in marketplace
-      scrapDbImport: true, // Not imported
-      timestamp: new Date(),
-    });
-
     //db for all scraps
     const docRef_db = await addDoc(collection(db, "scraps_db"), {
       userId: uid, // Store UID
@@ -45,7 +30,7 @@ export const uploadToFirebase = async (uid, imageFile, uploadDetail) => {
       timestamp: new Date(),
     });
 
-    console.log("Document written with ID:", docRef.id, docRef_db);
+    console.log("Document written with ID:", docRef_db);
     return true;
   } catch (error) {
     console.error("Error uploading to Firebase:", error);

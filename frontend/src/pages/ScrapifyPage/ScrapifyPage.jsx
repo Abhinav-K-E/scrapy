@@ -9,6 +9,7 @@ import { uploadToFirebase } from "../../utils/uploadData";
 import toast, { Toaster } from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
 import { uploadDataToMarket } from "../../utils/uploadDataToMarket";
+import SEARCHGIF from "../../assets/search.gif";
 
 const ImageUpload = () => {
   const { uid } = useAuth();
@@ -20,6 +21,7 @@ const ImageUpload = () => {
   const [imgId, setImgId] = useState(null);
   const [creativeData, setCreativeData] = useState(null);
   const [videoLinks, setVideoLinks] = useState(null);
+  const [searchLoader, setSearchLoader] = useState(false);
 
   const navigate = useNavigate();
 
@@ -85,9 +87,11 @@ const ImageUpload = () => {
 
   const makeCreative = async () => {
     //getting data
+    setSearchLoader(true);
     const res = await fetchAxios.post(`/repurpose`, selectedFile);
     setCreativeData(res.data.ideas);
     setVideoLinks(res.data.videoTutorials);
+    setSearchLoader(false);
     console.log(res);
   };
 
@@ -201,11 +205,21 @@ const ImageUpload = () => {
             Make it creative
           </div>
           <div className="creative-right">
+            {searchLoader && (
+              <div className="search-loader">
+                <img src={SEARCHGIF} alt="" />
+              </div>
+            )}
+
             {creativeData?.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
             {videoLinks?.map((item, index) => (
-              <li key={index}>{item?.url}</li>
+              <li key={index}>
+                <a href={item?.url} target="_blank">
+                  {item?.url}
+                </a>
+              </li>
             ))}
           </div>
         </div>

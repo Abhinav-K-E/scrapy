@@ -40,7 +40,7 @@ const DatabasePage = () => {
   };
   return (
     <div className="database-page">
-      <div className="top-search-bar">
+      {/* <div className="top-search-bar">
         <div className="seach-bar">
           <div className="search-bar">
             <svg
@@ -64,9 +64,9 @@ const DatabasePage = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="banner-container ">
+      {/* <div className="banner-container ">
         <div className="banner">
           <div className="banner-left">
             <div className="banner-txt">
@@ -80,7 +80,7 @@ const DatabasePage = () => {
             <img className="scrap-img" src={SCRAP} alt="" />
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="database-head">Discover all Scraps</div>
 

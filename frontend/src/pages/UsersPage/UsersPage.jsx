@@ -55,7 +55,7 @@ const UsersPage = () => {
               <div className="user-info">
                 <div className="user-image-container">
                   <img
-                    src={user?.photoURL}
+                    src={user.photoURL}
                     // alt={`${user.name}'s profile`}
                     className="user-image"
                   />
