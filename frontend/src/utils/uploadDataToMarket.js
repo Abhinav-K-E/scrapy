@@ -2,7 +2,7 @@ import { storage, db, auth } from "../../firebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 
-export const uploadDataToMarket = async (uid, imageFile, uploadDetail) => {
+export const uploadDataToMarket = async (uid,imgId, uploadDetail) => {
   const user = auth.currentUser;
   if (!user) {
     console.error("User not authenticated!");
@@ -10,11 +10,6 @@ export const uploadDataToMarket = async (uid, imageFile, uploadDetail) => {
   }
 
   try {
-    // 1. Upload Image to Firebase Storage
-    const storageRef = ref(storage, `images/${uid}/${imageFile.name}`);
-    const snapshot = await uploadBytes(storageRef, imageFile);
-    const downloadURL = await getDownloadURL(snapshot.ref);
-
     // 2. Save Metadata to Firestore (with UID)
     const docRef = await addDoc(collection(db, "scraps"), {
       userId: uid, // Store UID
@@ -24,7 +19,7 @@ export const uploadDataToMarket = async (uid, imageFile, uploadDetail) => {
       recyclabilityScore: uploadDetail.recyclability_score,
       estimatedValue: uploadDetail.price,
       attributes: uploadDetail.attributes,
-      imageUrl: downloadURL,
+      imageUrl: imgId,
       marketplace: false, // List in marketplace
       scrapDbImport: true, // Not imported
       timestamp: new Date(),

@@ -18,7 +18,7 @@ const ImageUpload = () => {
   const [uploadStatus, setUploadStatus] = useState(false);
   const [uploadDetail, setUploadDetail] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [imgId, setImgId] = useState(null);
+  const [imgId, setImg] = useState(null);
   const [creativeData, setCreativeData] = useState(null);
   const [videoLinks, setVideoLinks] = useState(null);
   const [searchLoader, setSearchLoader] = useState(false);
@@ -52,7 +52,12 @@ const ImageUpload = () => {
       console.log(response);
       setUploadDetail(response.data);
       setUploadStatus(true);
-      await uploadToFirebase(uid, selectedFile, response.data);
+      const downloadURL = await uploadToFirebase(
+        uid,
+        selectedFile,
+        response.data
+      );
+      setImg(downloadURL);
       setLoader(false);
     } catch (error) {
       console.error(error);
@@ -65,7 +70,7 @@ const ImageUpload = () => {
   //sell
   const handleSell = async () => {
     try {
-      const data = await uploadDataToMarket(uid, selectedFile, uploadDetail);
+      const data = await uploadDataToMarket(uid, imgId, uploadDetail);
       if (data != null) {
         console.log("scrap uploadeddd");
         toast.success("Scrap Added Successfully");

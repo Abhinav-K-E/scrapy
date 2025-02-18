@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./TopNav.scss";
-import axios from "axios";
-import fetchAxios from "../../../fetchAxios/fetchAxios";
-import { useAuth } from "../../../context/AuthContext";
 import { searchScrap } from "../../../utils/searchScrap";
 import { fetchAllData } from "../../../utils/getAllScraps";
 

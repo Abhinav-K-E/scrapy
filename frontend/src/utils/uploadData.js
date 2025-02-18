@@ -31,7 +31,7 @@ export const uploadToFirebase = async (uid, imageFile, uploadDetail) => {
     });
 
     console.log("Document written with ID:", docRef_db);
-    return true;
+    return downloadURL;
   } catch (error) {
     console.error("Error uploading to Firebase:", error);
     return false;
