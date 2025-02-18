@@ -8,6 +8,7 @@ import { uploadToFirebase } from "../../utils/uploadData";
 
 import toast, { Toaster } from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
+import { uploadDataToMarket } from "../../utils/uploadDataToMarket";
 
 const ImageUpload = () => {
   const { uid } = useAuth();
@@ -18,6 +19,7 @@ const ImageUpload = () => {
   const [loader, setLoader] = useState(false);
   const [imgId, setImgId] = useState(null);
   const [creativeData, setCreativeData] = useState(null);
+  const [videoLinks, setVideoLinks] = useState(null);
 
   const navigate = useNavigate();
 
@@ -61,17 +63,16 @@ const ImageUpload = () => {
   //sell
   const handleSell = async () => {
     try {
-      await fetchAxios.get(`/scrapify/sell/${imgId}`);
-      toast.success("Successfully uploaded!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    } catch (err) {
-      console.error(err);
-      toast.error("Uploading Failed!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      const data = await uploadDataToMarket(uid, selectedFile, uploadDetail);
+      if (data != null) {
+        console.log("scrap uploadeddd");
+        toast.success("Scrap Added Successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -86,6 +87,7 @@ const ImageUpload = () => {
     //getting data
     const res = await fetchAxios.post(`/repurpose`, selectedFile);
     setCreativeData(res.data.ideas);
+    setVideoLinks(res.data.videoTutorials);
     console.log(res);
   };
 
@@ -199,8 +201,11 @@ const ImageUpload = () => {
             Make it creative
           </div>
           <div className="creative-right">
-            {creativeData?.map((item) => (
-              <li>{item}</li>
+            {creativeData?.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+            {videoLinks?.map((item, index) => (
+              <li key={index}>{item?.url}</li>
             ))}
           </div>
         </div>
@@ -209,15 +214,15 @@ const ImageUpload = () => {
       {/* new  */}
       {uploadDetail != null && (
         <div className="tab-container">
-          <div className="tab-selctor" onClick={handleSell}>
+          <div className="tab-selctor" onClick={() => handleSell()}>
             Sell now
           </div>
-          <div className="tab-selctor" onClick={handlePopUp}>
+          {/* <div className="tab-selctor" onClick={handlePopUp}>
             Donate
           </div>
           <div className="tab-selctor" onClick={handlePopUp}>
             Trash
-          </div>
+          </div> */}
         </div>
       )}
     </div>

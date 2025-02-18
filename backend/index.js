@@ -109,7 +109,8 @@ app.post("/repurpose", upload.single("image"), async (req, res) => {
     const imageBase64 = encodeImage(req.file.path);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const result = await model.generateContent({
+    // First request for repurposing ideas
+    const ideasResult = await model.generateContent({
       contents: [
         {
           parts: [
@@ -119,10 +120,7 @@ app.post("/repurpose", upload.single("image"), async (req, res) => {
                      Start each idea with "You can" or "This can be".
                      Example format:
                      1. You can transform this into a decorative planter for small herbs and flowers
-                     2. This can be converted into a unique bird feeder
-                     3. You can repurpose this into a creative wall art piece
-                     4. This can be transformed into a custom lamp fixture
-                     5. You can use this to create a functional storage solution`,
+                     2. This can be converted into a unique bird feeder`,
             },
             {
               inline_data: {
@@ -135,23 +133,66 @@ app.post("/repurpose", upload.single("image"), async (req, res) => {
       ],
     });
 
-    const responseText = result.response.text();
-    
-    // Split by numbered items and clean up
-    const ideas = responseText
-      .split(/\d+\.\s+/)  // Split by numbers followed by period and whitespace
-      .slice(1)           // Remove empty first element
-      .map(idea => idea.trim())
-      .filter(idea => idea.length > 0)
-      .map(idea => idea.replace(/\n/g, ' ').trim());  // Remove any newlines within ideas
+    // Second request for video suggestions
+    const videoResult = await model.generateContent({
+      contents: [
+        {
+          parts: [
+            {
+              text: `Based on the image, suggest 3 YouTube tutorial search queries that would be helpful for repurposing this object.
+                     Format as a list of search terms only, no numbers or bullets.
+                     Example format:
+                     DIY plastic bottle planters tutorial
+                     How to make bird feeder from recycled materials
+                     Upcycled home decor ideas`,
+            },
+            {
+              inline_data: {
+                mime_type: "image/jpeg",
+                data: imageBase64,
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    const ideasText = ideasResult.response.text();
+    const videoText = videoResult.response.text();
+
+    // Parse ideas
+    const ideas = ideasText
+      .split(/\d+\.\s+/)
+      .slice(1)
+      .map((idea) => idea.trim())
+      .filter((idea) => idea.length > 0)
+      .map((idea) => idea.replace(/\n/g, " ").trim());
+
+    // Parse video search queries
+    const videoQueries = videoText
+      .split("\n")
+      .map((query) => query.trim())
+      .filter((query) => query.length > 0)
+      .map((query) => {
+        // Create a YouTube search URL
+        const searchQuery = encodeURIComponent(query);
+        return {
+          query: query,
+          url: `https://www.youtube.com/results?search_query=${searchQuery}`,
+        };
+      });
 
     // Cleanup uploaded file
     fs.unlinkSync(req.file.path);
 
-    res.json({ 
+    res.json({
       ideas,
-      count: ideas.length,
-      success: ideas.length > 0
+      videoTutorials: videoQueries,
+      count: {
+        ideas: ideas.length,
+        videos: videoQueries.length,
+      },
+      success: ideas.length > 0,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
