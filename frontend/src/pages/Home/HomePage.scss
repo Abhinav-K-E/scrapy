@@ -3,3 +3,41 @@
     height: 100vh;
     background: var(--primary-bg);
 }
+
+.hero{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
+    .hero-img{
+        width: 60%;
+        margin-top: 40px;
+    }
+    .get-btn-container{
+        display: flex;
+        position: relative;
+        cursor: pointer;
+    }
+    .txt{
+        padding: 14px 30px;
+        // background: #fff;
+        border: 1px solid #010707;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100px;
+        height: 56px;
+    }
+    .icon{
+        border-radius: 50%;
+        background-color: #003F2E;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 56px;
+        width: 56px;
+        margin-left: -20px;
+    }
+}

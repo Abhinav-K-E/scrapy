@@ -41,6 +41,7 @@ const ImageUpload = () => {
       const formData = new FormData();
       formData.append("image", selectedFile);
       console.log(selectedFile);
+      setSelectedFile(formData); // setting formadata for repurse use
       const response = await fetchAxios.post("/scrapify", formData, {
         headers: {},
       });
@@ -49,11 +50,6 @@ const ImageUpload = () => {
       setUploadStatus(true);
       await uploadToFirebase(uid, selectedFile, response.data);
       setLoader(false);
-
-      //getting data
-      const res = await fetchAxios.post(`/repurpose`, formData);
-      setCreativeData(res.data.ideas);
-      console.log(res);
     } catch (error) {
       console.error(error);
       setUploadStatus(false);
@@ -84,6 +80,13 @@ const ImageUpload = () => {
     setTimeout(() => {
       window.location.reload();
     }, 1000);
+  };
+
+  const makeCreative = async () => {
+    //getting data
+    const res = await fetchAxios.post(`/repurpose`, selectedFile);
+    setCreativeData(res.data.ideas);
+    console.log(res);
   };
 
   return loader ? (
@@ -118,8 +121,10 @@ const ImageUpload = () => {
             <div className="u-img-desc">{uploadDetail?.desc}</div>
             <div className="u-img-head">Attributes</div>
             <div className="attributes">
-              {uploadDetail?.attributes?.map((item) => (
-                <div className="attribute">{item}</div>
+              {uploadDetail?.attributes?.map((item, index) => (
+                <div className="attribute" key={index}>
+                  {item}
+                </div>
               ))}
             </div>
             <div className="u-img-head">Analytics</div>
@@ -190,7 +195,9 @@ const ImageUpload = () => {
       {/* if there is data */}
       {uploadDetail != null && (
         <div className="creative-box">
-          <div className="creative-left">Make it creative</div>
+          <div className="creative-left" onClick={() => makeCreative()}>
+            Make it creative
+          </div>
           <div className="creative-right">
             {creativeData?.map((item) => (
               <li>{item}</li>

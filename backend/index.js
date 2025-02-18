@@ -102,7 +102,6 @@ app.post("/scrapify", upload.single("image"), async (req, res) => {
   }
 });
 
-// Repurposing Ideas API
 app.post("/repurpose", upload.single("image"), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
@@ -115,9 +114,15 @@ app.post("/repurpose", upload.single("image"), async (req, res) => {
         {
           parts: [
             {
-              text: `Suggest creative repurposing ideas for this object in a list format with minimum of 5 points:
-                ideas==[idea1, idea2, idea3,idea4]
-                `,
+              text: `Analyze this image and suggest exactly 5 creative ways to repurpose this object.
+                     Format each idea as a complete sentence, numbered from 1-5.
+                     Start each idea with "You can" or "This can be".
+                     Example format:
+                     1. You can transform this into a decorative planter for small herbs and flowers
+                     2. This can be converted into a unique bird feeder
+                     3. You can repurpose this into a creative wall art piece
+                     4. This can be transformed into a custom lamp fixture
+                     5. You can use this to create a functional storage solution`,
             },
             {
               inline_data: {
@@ -131,22 +136,27 @@ app.post("/repurpose", upload.single("image"), async (req, res) => {
     });
 
     const responseText = result.response.text();
-
-    const ideas = parseAIKey("ideas", responseText)
-      .replace("[", "")
-      .replace("]", "")
-      .split(",")
-      .map((x) => x.trim());
+    
+    // Split by numbered items and clean up
+    const ideas = responseText
+      .split(/\d+\.\s+/)  // Split by numbers followed by period and whitespace
+      .slice(1)           // Remove empty first element
+      .map(idea => idea.trim())
+      .filter(idea => idea.length > 0)
+      .map(idea => idea.replace(/\n/g, ' ').trim());  // Remove any newlines within ideas
 
     // Cleanup uploaded file
     fs.unlinkSync(req.file.path);
 
-    res.json({ ideas });
+    res.json({ 
+      ideas,
+      count: ideas.length,
+      success: ideas.length > 0
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
 // Start Server
 app.listen(port, () =>
   console.log(`✅ Server running on http://localhost:${port}`)
