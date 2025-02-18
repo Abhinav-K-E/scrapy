@@ -3,6 +3,8 @@ import "./TopNav.scss";
 import axios from "axios";
 import fetchAxios from "../../../fetchAxios/fetchAxios";
 import { useAuth } from "../../../context/AuthContext";
+import { searchScrap } from "../../../utils/searchScrap";
+import { fetchAllData } from "../../../utils/getAllScraps";
 
 const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
   const [userData, setUserData] = useState();
@@ -18,11 +20,13 @@ const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
       setLoader(true);
       // Call your search function here
       if (search.length > 0) {
-        const res = await fetchAxios.get(`/market/${search}`);
-        setProducts(res.data);
+        const res = await searchScrap(search);
+        console.log(res);
+        setProducts(res);
       } else {
-        const res = await fetchAxios.get(`/market/.*`);
-        setProducts(res.data);
+        const res = await fetchAllData("scraps");
+        setProducts(res);
+        console.log("no result");
       }
       setLoader(false);
     }
@@ -55,9 +59,7 @@ const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
       </div>
       <div className="dash-top-right">
         <div className="profile">
-          <img
-          src={`${userData?.photoURL}`}
-          className="profile-pic"></img>
+          <img src={`${userData?.photoURL}`} className="profile-pic"></img>
           <div className="profile-name">{userData?.displayName}</div>
         </div>
       </div>
