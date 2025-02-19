@@ -3,12 +3,23 @@ import HERO from "../../assets/hero.svg";
 import { useAuth } from "../../context/AuthContext";
 
 import HEROSVG from "../../assets/heropic.svg";
+import { useNavigate } from "react-router-dom";
 const Hero = () => {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, user } = useAuth();
+  const navigate = useNavigate();
   return (
     <div className="hero">
       <img src={HERO} className="hero-img" alt="" />
-      <div className="get-btn-container" onClick={() => signInWithGoogle()}>
+      <div
+        className="get-btn-container"
+        onClick={() => {
+          if (user) {
+            navigate("/dashboard/products");
+          } else {
+            signInWithGoogle();
+          }
+        }}
+      >
         <div className="txt">Get Started</div>
         <div className="icon">
           <svg
