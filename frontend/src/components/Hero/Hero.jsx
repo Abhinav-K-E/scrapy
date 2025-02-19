@@ -1,6 +1,8 @@
 import React from "react";
 import HERO from "../../assets/hero.svg";
 import { useAuth } from "../../context/AuthContext";
+
+import HEROSVG from "../../assets/heropic.svg";
 const Hero = () => {
   const { signInWithGoogle } = useAuth();
   return (
@@ -26,6 +28,7 @@ const Hero = () => {
           </svg>
         </div>
       </div>
+      <img className="main-img" src={HEROSVG} alt="" />
     </div>
   );
 };

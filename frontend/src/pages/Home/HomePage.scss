@@ -12,8 +12,8 @@
     gap: 24px;
 
     .hero-img{
-        width: 60%;
-        margin-top: 40px;
+        width: 50%;
+        margin-top: 0px;
     }
     .get-btn-container{
         display: flex;
@@ -31,7 +31,7 @@
         height: 56px;
     }
     .icon{
-        border-radius: 50%;
+        border-radius: 80%;
         background-color: #003F2E;
         display: flex;
         align-items: center;
@@ -39,5 +39,9 @@
         height: 56px;
         width: 56px;
         margin-left: -20px;
+    }
+    .main-img{
+        width: 50%;
+        margin-top: 20px;
     }
 }
