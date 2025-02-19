@@ -16,9 +16,9 @@ const LeftNav = () => {
   return (
     <div className="left-nav">
       <div className="left-nav-grp">
-        <div className="logo">
+        <Link to='/' className="logo">
           <img src={LOGO} alt="" />
-        </div>
+        </Link>
         {isAdmin == true ? (
           <ul className="nav-items">
             <li>
