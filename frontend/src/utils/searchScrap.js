@@ -17,49 +17,38 @@ export const searchScrap = async (term) => {
     const scrapRef = collection(db, "scraps");
     let searchResults = [];
 
-    // Create an array of queries for different fields
-    const queries = [
-      // Search by title
-      query(
-        scrapRef,
-        where("title", ">=", term),
-        where("title", "<=", term + "\uf8ff"),
-        orderBy("title")
-      ),
-      // Search by description
-      query(
-        scrapRef,
-        where("description", ">=", term),
-        where("description", "<=", term + "\uf8ff"),
-        orderBy("description")
-      ),
-      // Search in attributes array
-      query(scrapRef, where("attributes", "array-contains-any", [term])),
-    ];
+    // Fetch all scraps and filter results locally for maximum flexibility
+    const querySnapshot = await getDocs(scrapRef);
 
-    // Execute all queries in parallel
-    const querySnapshots = await Promise.all(queries.map((q) => getDocs(q)));
+    const normalizedTerm = term.toLowerCase();
 
-    // Combine results and remove duplicates
-    const uniqueResults = new Map();
-
-    querySnapshots.forEach((snapshot) => {
-      snapshot.forEach((doc) => {
-        if (!uniqueResults.has(doc.id)) {
-          uniqueResults.set(doc.id, {
-            id: doc.id,
-            ...doc.data(),
-          });
+    // Helper function to check if the term exists in any field or nested object
+    const matchesSearch = (obj) => {
+      const checkValue = (value) => {
+        if (typeof value === "string") {
+          return value.toLowerCase().includes(normalizedTerm);
+        } else if (Array.isArray(value)) {
+          return value.some((item) => checkValue(item));
+        } else if (typeof value === "object" && value !== null) {
+          return Object.values(value).some((nestedValue) => checkValue(nestedValue));
         }
-      });
+        return false;
+      };
+      return Object.values(obj).some((value) => checkValue(value));
+    };
+
+    // Filter the results based on the search term
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      if (matchesSearch(data)) {
+        searchResults.push({ id: doc.id, ...data });
+      }
     });
 
-    searchResults = Array.from(uniqueResults.values());
     return searchResults;
   } catch (err) {
     console.error("Search error:", err);
-    // setError("Failed to search items. Please try again.");
-  } finally {
-    // setIsLoading(false);
+    return [];
   }
 };
+
