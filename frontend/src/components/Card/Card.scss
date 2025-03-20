@@ -20,6 +20,7 @@ a{
     0px -1.253px 33.422px 0px rgba(0, 0, 0, 0.05);
 
    text-decoration: none;
+   position: relative;
 }
 
 .product-top {
@@ -34,6 +35,9 @@ a{
 }
 
 .location-icon {
+  position: absolute;
+  top: 26px;
+  right: 26px;
   height: 40px;
   max-width: 180px;
   display: flex;

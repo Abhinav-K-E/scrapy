@@ -28,6 +28,7 @@ export const uploadToFirebase = async (uid, imageFile, uploadDetail) => {
       marketplace: false, // List in marketplace
       scrapDbImport: true, // Not imported
       timestamp: new Date(),
+      location: "Kozhikode",
     });
 
     console.log("Document written with ID:", docRef_db);
