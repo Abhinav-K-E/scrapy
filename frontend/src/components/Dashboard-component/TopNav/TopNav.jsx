@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./TopNav.scss";
 import { searchScrap } from "../../../utils/searchScrap";
 import { fetchAllData } from "../../../utils/getAllScraps";
+import { useAuth } from "../../../context/AuthContext";
 
 const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
   const [userData, setUserData] = useState();
+  const { setUid } = useAuth();
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("userData"));
     setUserData(data);
+    console.log(data);
+    setUid(data.uid);
+    localStorage.getItem("uid", data.uid);
   }, []);
 
   const handleKeyDown = async (event) => {
@@ -56,7 +61,7 @@ const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
       </div>
       <div className="dash-top-right">
         <div className="profile">
-          <img src={`${userData?.photoURL}`} className="profile-pic"></img>
+          <img src={userData?.photoURL} className="profile-pic"></img>
           <div className="profile-name">{userData?.displayName}</div>
         </div>
       </div>

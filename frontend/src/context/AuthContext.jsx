@@ -19,10 +19,13 @@ export const AuthProvider = ({ children }) => {
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
+      console.log(result);
       const googleUser = result.user;
 
+      console.log(googleUser);
       setUserData(googleUser);
       setUid(googleUser.uid);
+      console.log("ggg",uid);
       localStorage.setItem("uid", googleUser.uid);
       localStorage.setItem("user", true);
       localStorage.setItem("userData", JSON.stringify(googleUser));
@@ -77,6 +80,7 @@ export const AuthProvider = ({ children }) => {
     setIsAdmin,
     selectedUser,
     setSelectedUser,
+    setUid
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
