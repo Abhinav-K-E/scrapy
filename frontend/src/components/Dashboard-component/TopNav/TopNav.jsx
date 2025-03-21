@@ -5,14 +5,18 @@ import { fetchAllData } from "../../../utils/getAllScraps";
 import { useAuth } from "../../../context/AuthContext";
 
 const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState(null);
+  const [imageError, setImageError] = useState(false);
   const { setUid } = useAuth();
+  
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("userData"));
-    setUserData(data);
-    console.log(data);
-    setUid(data.uid);
-    localStorage.getItem("uid", data.uid);
+    if (data) {
+      setUserData(data);
+      console.log(data);
+      setUid(data.uid);
+      localStorage.setItem("uid", data.uid); // Fixed: was using getItem instead of setItem
+    }
   }, []);
 
   const handleKeyDown = async (event) => {
@@ -32,6 +36,21 @@ const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
       }
       setLoader(false);
     }
+  };
+
+  // Handle image load error
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  // Get user initials for fallback avatar
+  const getUserInitials = () => {
+    if (!userData || !userData.displayName) return "U";
+    const nameParts = userData.displayName.split(" ");
+    if (nameParts.length > 1) {
+      return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
+    }
+    return nameParts[0][0].toUpperCase();
   };
 
   return (
@@ -61,8 +80,23 @@ const TopNav = ({ search, setSearch, setLoader, setProducts, products }) => {
       </div>
       <div className="dash-top-right">
         <div className="profile">
-          <img src={userData?.photoURL} className="profile-pic"></img>
-          <div className="profile-name">{userData?.displayName}</div>
+          {userData && (
+            <>
+              {!imageError && userData.photoURL ? (
+                <img 
+                  src={userData.photoURL} 
+                  className="profile-pic"
+                  onError={handleImageError}
+                  alt={userData.displayName || "User"}
+                />
+              ) : (
+                <div className="profile-pic-fallback">
+                  {getUserInitials()}
+                </div>
+              )}
+              <div className="profile-name">{userData.displayName || "User"}</div>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -22,6 +22,14 @@ const ImageUpload = () => {
   const [creativeData, setCreativeData] = useState(null);
   const [videoLinks, setVideoLinks] = useState(null);
   const [searchLoader, setSearchLoader] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState({
+    title: "",
+    desc: "",
+    attributes: [],
+  });
+  const [editingAttributeIndex, setEditingAttributeIndex] = useState(-1);
+  const [newAttribute, setNewAttribute] = useState("");
 
   const navigate = useNavigate();
 
@@ -59,6 +67,13 @@ const ImageUpload = () => {
       );
       setImg(downloadURL);
       setLoader(false);
+
+      // Initialize the edit content with the response data
+      setEditedContent({
+        title: response.data.title,
+        desc: response.data.desc,
+        attributes: [...response.data.attributes],
+      });
     } catch (error) {
       console.error(error);
       toast.error("Invalid Image format 🙁");
@@ -72,7 +87,17 @@ const ImageUpload = () => {
   //sell
   const handleSell = async () => {
     try {
-      const data = await uploadDataToMarket(uid, imgId, uploadDetail);
+      // If user has edited the content, use the edited version
+      const dataToUpload = isEditing
+        ? {
+            ...uploadDetail,
+            title: editedContent.title,
+            desc: editedContent.desc,
+            attributes: editedContent.attributes,
+          }
+        : uploadDetail;
+
+      const data = await uploadDataToMarket(uid, imgId, dataToUpload);
       if (data != null) {
         console.log("scrap uploadeddd");
         toast.success("Scrap Added Successfully");
@@ -100,6 +125,57 @@ const ImageUpload = () => {
     setVideoLinks(res.data.videoTutorials);
     setSearchLoader(false);
     console.log(res);
+  };
+
+  // Edit functionality
+  const handleEditToggle = () => {
+    if (isEditing) {
+      // Save changes
+      setUploadDetail({
+        ...uploadDetail,
+        title: editedContent.title,
+        desc: editedContent.desc,
+        attributes: editedContent.attributes,
+      });
+      toast.success("Changes saved successfully!");
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleInputChange = (e, field) => {
+    setEditedContent({
+      ...editedContent,
+      [field]: e.target.value,
+    });
+  };
+
+  const handleAttributeChange = (index, value) => {
+    const updatedAttributes = [...editedContent.attributes];
+    updatedAttributes[index] = value;
+    setEditedContent({
+      ...editedContent,
+      attributes: updatedAttributes,
+    });
+  };
+
+  const handleAttributeDelete = (index) => {
+    const updatedAttributes = editedContent.attributes.filter(
+      (_, i) => i !== index
+    );
+    setEditedContent({
+      ...editedContent,
+      attributes: updatedAttributes,
+    });
+  };
+
+  const handleAddAttribute = () => {
+    if (newAttribute.trim()) {
+      setEditedContent({
+        ...editedContent,
+        attributes: [...editedContent.attributes, newAttribute],
+      });
+      setNewAttribute("");
+    }
   };
 
   return loader ? (
@@ -130,16 +206,90 @@ const ImageUpload = () => {
 
         {uploadDetail != null && (
           <div className="right-grid">
-            <div className="u-img-name">{uploadDetail?.title}</div>
-            <div className="u-img-desc">{uploadDetail?.desc}</div>
-            <div className="u-img-head">Attributes</div>
-            <div className="attributes">
-              {uploadDetail?.attributes?.map((item, index) => (
-                <div className="attribute" key={index}>
-                  {item}
+            {isEditing ? (
+              <div className="edit-form">
+                <div className="form-group">
+                  <label>Title:</label>
+                  <input
+                    type="text"
+                    value={editedContent.title}
+                    onChange={(e) => handleInputChange(e, "title")}
+                    className="edit-input"
+                  />
                 </div>
-              ))}
+                <div className="form-group">
+                  <label>Description:</label>
+                  <textarea
+                    value={editedContent.desc}
+                    onChange={(e) => handleInputChange(e, "desc")}
+                    className="edit-textarea"
+                    rows="4"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Attributes:</label>
+                  <div className="attributes-edit-list">
+                    {editedContent.attributes.map((attr, index) => (
+                      <div key={index} className="attribute-edit-item">
+                        <input
+                          type="text"
+                          value={attr}
+                          onChange={(e) =>
+                            handleAttributeChange(index, e.target.value)
+                          }
+                          className="attribute-input"
+                        />
+                        <button
+                          className="delete-attribute-btn"
+                          onClick={() => handleAttributeDelete(index)}
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                    <div className="add-attribute">
+                      <input
+                        type="text"
+                        value={newAttribute}
+                        onChange={(e) => setNewAttribute(e.target.value)}
+                        placeholder="Add new attribute"
+                        className="attribute-input"
+                      />
+                      <button
+                        className="delete-attribute-btn"
+                        onClick={handleAddAttribute}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="u-img-name">{uploadDetail?.title}</div>
+                <div className="u-img-desc">{uploadDetail?.desc}</div>
+                <div className="u-img-head">Attributes</div>
+                <div className="attributes">
+                  {uploadDetail?.attributes?.map((item, index) => (
+                    <div className="attribute" key={index}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <div className="content-header">
+              {/* {isEditing && <h3>AI Analysis</h3>} */}
+              <button
+                className={`edit-btn ${isEditing ? "active" : ""}`}
+                onClick={handleEditToggle}
+              >
+                {isEditing ? "Save" : "Edit Details"}
+              </button>
             </div>
+
             <div className="u-img-head">Analytics</div>
             <div className="tabs">
               <div className="tab yellow">
@@ -179,25 +329,6 @@ const ImageUpload = () => {
                 Recyclability Score : {uploadDetail?.recyclability_score} %
               </div>
               <div className="tab green">
-                {/* <svg
-                  width={24}
-                  height={24}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M13.4 17.42h-2.51c-1.64 0-2.97-1.38-2.97-3.08 0-.41.34-.75.75-.75s.75.34.75.75c0 .87.66 1.58 1.47 1.58h2.51c.65 0 1.19-.58 1.19-1.28 0-.87-.31-1.04-.82-1.22L9.74 12c-.78-.27-1.83-.85-1.83-2.64 0-1.54 1.21-2.78 2.69-2.78h2.51c1.64 0 2.97 1.38 2.97 3.08 0 .41-.34.75-.75.75s-.75-.34-.75-.75c0-.87-.66-1.58-1.47-1.58H10.6c-.65 0-1.19.58-1.19 1.28 0 .87.31 1.04.82 1.22L14.26 12c.78.27 1.83.85 1.83 2.64-.01 1.53-1.21 2.78-2.69 2.78z"
-                    fill=""
-                  />
-                  <path
-                    d="M12 18.75c-.41 0-.75-.34-.75-.75V6c0-.41.34-.75.75-.75s.75.34.75.75v12c0 .41-.34.75-.75.75z"
-                    fill=""
-                  />
-                  <path
-                    d="M15 22.75H9c-5.43 0-7.75-2.32-7.75-7.75V9c0-5.43 2.32-7.75 7.75-7.75h6c5.43 0 7.75 2.32 7.75 7.75v6c0 5.43-2.32 7.75-7.75 7.75zm-6-20C4.39 2.75 2.75 4.39 2.75 9v6c0 4.61 1.64 6.25 6.25 6.25h6c4.61 0 6.25-1.64 6.25-6.25V9c0-4.61-1.64-6.25-6.25-6.25H9z"
-                    fill=""
-                  />
-                </svg> */}
                 <div className="rupee">₹</div>
                 EST Value : {uploadDetail?.price}
               </div>
@@ -232,19 +363,13 @@ const ImageUpload = () => {
           </div>
         </div>
       )}
-      {/* make it creative */}
+
       {/* new  */}
       {uploadDetail != null && (
         <div className="tab-container">
           <div className="tab-selctor" onClick={() => handleSell()}>
             Sell now
           </div>
-          {/* <div className="tab-selctor" onClick={handlePopUp}>
-            Donate
-          </div>
-          <div className="tab-selctor" onClick={handlePopUp}>
-            Trash
-          </div> */}
         </div>
       )}
     </div>
