@@ -49,7 +49,7 @@ const ReportIssueForm = () => {
         setIsSubmitted(false);
       }, 5000);
     } catch (err) {
-      setError("Failed to submit issue. Please try again later.");
+      setError("Failed to submit feedback. Please try again later.");
       console.error("Error adding document: ", err);
     } finally {
       setIsSubmitting(false);
@@ -63,7 +63,7 @@ const ReportIssueForm = () => {
 
         {isSubmitted && (
           <div className="success-message">
-            Issue reported successfully! Thank you for your feedback.
+            Thank you for your feedback !
           </div>
         )}
 
@@ -77,7 +77,7 @@ const ReportIssueForm = () => {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Brief description of the issue"
+              placeholder="Brief description"
               required
               disabled={isSubmitting}
             />
@@ -89,40 +89,19 @@ const ReportIssueForm = () => {
               id="issue-description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Please provide details about the issue..."
+              placeholder="Please provide details ..."
               rows={5}
               required
               disabled={isSubmitting}
             />
           </div>
 
-          {/* <div className="form-group">
-            <label htmlFor="issue-severity">Severity</label>
-            <select
-              id="issue-severity"
-              value={severity}
-              onChange={(e) => setSeverity(e.target.value)}
-              disabled={isSubmitting}
-            >
-              <option value="low">
-                Low - Minor issue, not affecting functionality
-              </option>
-              <option value="medium">
-                Medium - Partial functionality affected
-              </option>
-              <option value="high">High - Major functionality affected</option>
-              <option value="critical">
-                Critical - Complete failure or data loss
-              </option>
-            </select>
-          </div> */}
-
           <button
             type="submit"
             className="submit-button"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Submitting..." : "Submit Issue Report"}
+            {isSubmitting ? "Submitting..." : "Submit Feedback"}
           </button>
         </form>
       </div>

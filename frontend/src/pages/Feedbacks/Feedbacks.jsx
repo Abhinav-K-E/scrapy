@@ -40,7 +40,7 @@ const Feedbacks = () => {
         console.log(issuesList)
       } catch (err) {
         console.error("Error fetching issues: ", err);
-        setError("Failed to load issues. Please try again later.");
+        setError("Failed to load Feedback. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -149,12 +149,12 @@ const Feedbacks = () => {
 
       {/* Loading state */}
       {loading ? (
-        <div className="loading-message">Loading issues...</div>
+        <div className="loading-message">Loading Feedback...</div>
       ) : (
         <div className="issues-container">
           {issues.length === 0 ? (
             <p className="no-issues-message">
-              No issues found. Adjust filters or add a new issue.
+              No Feedbacks found. Adjust filters or add a new Feedback.
             </p>
           ) : (
             <div className="issues-grid">
