@@ -76,9 +76,11 @@ const ImageUpload = () => {
       });
     } catch (error) {
       console.error(error);
-      toast.error("Invalid Image format 🙁");
       setUploadStatus(false);
       setLoader(false);
+      setTimeout(() => {
+        toast.error("Invalid Image format 🙁");
+      }, 500);
     }
   };
 
@@ -186,7 +188,7 @@ const ImageUpload = () => {
       <div className="upload-grid">
         <div className="left-grid">
           <div {...getRootProps()} className="upload-sec">
-            <input {...getInputProps()} />
+            <input {...getInputProps()} accept="image/*" />
             {selectedFile ? (
               <img
                 className="img-preview"
